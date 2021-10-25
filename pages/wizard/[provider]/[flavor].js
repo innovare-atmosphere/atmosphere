@@ -1,12 +1,10 @@
 import { useRouter } from "next/router";
-import Link from 'next/link'
-import path from 'path'
+import Link from "next/link";
+import path from "path";
 import { useState } from "react";
 import useSWR from "swr";
-import useSWRImmutable from 'swr/immutable';
+import useSWRImmutable from "swr/immutable";
 import Ansi from "ansi-to-react";
-
-
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -17,16 +15,13 @@ export async function submit(event, provider, flavor, setLogData) {
   items.map(({ name, value }) => {
     body[name] = value;
   });
-  const res = await fetch(
-    `http://127.0.0.1:8000/invoke/${provider}/${flavor}`,
-    {
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-    }
-  );
+  const res = await fetch(`/api/invoke/${provider}/${flavor}`, {
+    body: JSON.stringify(body),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+  });
 
   const result = await res.json();
   setLogData(result);
@@ -34,7 +29,7 @@ export async function submit(event, provider, flavor, setLogData) {
 
 function useProviderFlavor(provider, flavor) {
   const { data, error } = useSWRImmutable(
-    `http://127.0.0.1:8000/variables/${provider}/${flavor}`,
+    `/api/variables/${provider}/${flavor}`,
     fetcher
   );
   return {
@@ -45,35 +40,39 @@ function useProviderFlavor(provider, flavor) {
 }
 
 const useLogData = (uuid) => {
-    if (uuid === undefined) {
-      return {
-        formData: undefined,
-        isLoading: true,
-        isError: undefined,
-      };
-    }
-    const { data, error } = useSWR(
-      `http://127.0.0.1:8000/state/${uuid}`,
-      fetcher,
-      {refreshInterval: 1000}
-    );
+  if (uuid === undefined) {
     return {
-      log: data,
-      isLoading: !error && !data,
-      isError: error,
+      formData: undefined,
+      isLoading: true,
+      isError: undefined,
     };
   }
+  const { data, error } = useSWR(
+    `${process.env.NEXT_PUBLIC_RUNNER_URL}/state/${uuid}`,
+    fetcher,
+    { refreshInterval: 1000 }
+  );
+  return {
+    log: data,
+    isLoading: !error && !data,
+    isError: error,
+  };
+};
 
 export function OutputData({ uuid }) {
   if (!uuid) return <></>;
   const { log, isLoading, isError } = useLogData(uuid);
   return (
     <>
+      {isError && <p>Error happened!</p>}
+      {isLoading && <p>Please wait...</p>}
       <pre>UUID: {uuid}</pre>
       {log && log.status && (
         <>
           <h1>Init Output</h1>
-          <pre><Ansi>{log.status.output_init}</Ansi></pre>
+          <pre>
+            <Ansi>{log.status.output_init}</Ansi>
+          </pre>
           <h1>Apply Output</h1>
           <pre>{log.status.otuput_apply}</pre>
           <h1>State</h1>
@@ -89,20 +88,27 @@ export default function WizardFlavor() {
   const router = useRouter();
   const { provider, flavor } = router.query;
   if (provider === undefined || flavor === undefined) {
-    return (<></>);
+    return <></>;
   }
   const { formData, isLoading, isError } = useProviderFlavor(provider, flavor);
   const [logData, setLogData] = useState(undefined);
   return (
     <>
-        <Link href={path.join('/wizard',provider)}>
-            <a className="flex w-32 justify-center rounded text-gray-400 bg-gray-100 items-center px-4 py-2 mx-1 hover:text-white hover:bg-gray-500 hover:shadow">
-            {'<'} Back
-            </a>
-        </Link>
-      {isError && (<p>Error happened!</p>)}
-      {isLoading && (<p>Please wait...</p>)}
-      {formData && (formData.output) && (
+      <Link href={path.join("/wizard", provider)}>
+        <a className="flex w-32 justify-center rounded text-gray-400 bg-gray-100 items-center px-4 py-2 mx-1 hover:text-white hover:bg-gray-500 hover:shadow">
+          {"<"} Back
+        </a>
+      </Link>
+      {isError && <p>Error happened!</p>}
+      {isLoading && <p>Please wait...</p>}
+      {formData && (
+          <p>
+          {formData.error_status
+            ? `Error: ${formData.error}`
+            : ""}
+        </p>
+      )}
+      {formData && formData.output && (
         <>
           <p>{formData.output.loading ? "Loading" : ""}</p>
           <form
@@ -163,9 +169,11 @@ export default function WizardFlavor() {
                   </div>
                 </div>
               ))}
-            <button type="submit"
-                className="flex w-full justify-center rounded-b text-gray-100 bg-purple-400 items-center px-4 py-2 hover:text-white hover:bg-purple-500 hover:shadow">
-                Execute
+            <button
+              type="submit"
+              className="flex w-full justify-center rounded-b text-gray-100 bg-purple-400 items-center px-4 py-2 hover:text-white hover:bg-purple-500 hover:shadow"
+            >
+              Execute
             </button>
           </form>
         </>
