@@ -1,0 +1,3 @@
+[submodule "providers/odoo/flavors"]
+	path = providers/odoo/flavors
+	url = https://github.com/innovare-atmosphere/odoo
