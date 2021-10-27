@@ -21,7 +21,7 @@ export default function Captcha({ captchaValidator }) {
   };
   const handleClick = async (event, token) => {
     event.preventDefault();
-    const res = await fetch(`${process.env.NEXT_PUBLIC_RUNNER_URL}/validate/`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_RUNNER_URL}/validate`, {
       body: JSON.stringify({
         validation: {
           token: token,
