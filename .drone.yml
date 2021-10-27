@@ -45,8 +45,6 @@ steps:
       - cd /home/developer/Atmosphere/atmosphere-runner/       
       - git pull https://$gituser:$gitpass@gogs.innovare.es/INNOVARE/atmosphere-runner
       - sudo docker build --tag atmosphere:atmosphere .
-      - sudo docker-compose down  
-      - sudo docker-compose up -d
 
 - name: deploy-atmosphere
   image: appleboy/drone-ssh
