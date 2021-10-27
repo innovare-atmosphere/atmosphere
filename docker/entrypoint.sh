@@ -1,7 +1,6 @@
-#!/usr/bin/env bash
-set -Ex
+#!/usr/bin/env sh
 
-function apply_path {
+apply_path() {
 
     echo "Check that we have BACKEND_URL vars"
     test -n "$BACKEND_URL"
@@ -10,5 +9,5 @@ function apply_path {
 }
 
 apply_path
-echo "Starting Nextjs"
+echo "Starting Nextjs"d
 exec "$@"
