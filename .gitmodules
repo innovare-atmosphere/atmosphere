@@ -1,3 +1,15 @@
 [submodule "providers/odoo/flavors"]
 	path = providers/odoo/flavors
 	url = https://github.com/innovare-atmosphere/odoo
+
+[submodule "providers/mattermost/flavors"]
+        path = providers/mattermost/flavors
+        url = https://github.com/innovare-atmosphere/mattermost
+
+[submodule "providers/mautic/flavors"]
+        path = providers/mautic/flavors
+        url = https://github.com/innovare-atmosphere/mautic
+
+[submodule "providers/maetabase/flavors"]
+        path = providers/metabase/flavors
+        url = https://github.com/innovare-atmosphere/metabase
