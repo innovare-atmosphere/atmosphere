@@ -1,0 +1,20 @@
+version: '3'
+services:
+  backend:
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp:/tmp
+    environment:
+      - FRONTEND_URL=https://atmosphere.innovare.es
+    image: "atmosphere:atmosphere-runner"
+    ports:
+      - 3001:80
+  frontend:
+    depends_on:
+      - "backend"
+    environment:
+      - BACKEND_URL=https://atmosphere-backend.innovare.es
+    image: "atmosphere:atmosphere"
+    ports:
+     - 3000:3000
+    restart: unless-stopped
