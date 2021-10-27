@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@headlessui/react": "^1.4.1",
     "ansi-to-react": "^6.1.6",
     "gray-matter": "^4.0.3",
     "next": "latest",

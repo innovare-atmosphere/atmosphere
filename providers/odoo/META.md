@@ -3,6 +3,6 @@ name: Odoo
 url: https://odoo.com
 logo:  https://odoocdn.com/openerp_website/static/src/img/assets/svg/odoo_logo.svg
 ---
-Odoo es un conjunto de aplicaciones de código abierto que cubren todas las necesidades de tu compañía: CRM, comercio electrónico, contabilidad, inventario, punto de venta, gestión de proyectos, etc.
+Odoo is a suite of open source business apps that cover all your company needs: CRM, eCommerce, accounting, inventory, point of sale, project management, etc.
 
-La propuesta única de valor de Odoo es ser muy fácil de usar y totalmente integrado.
+Odoo's unique value proposition is to be at the same time very easy to use and fully integrated.
