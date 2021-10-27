@@ -1,0 +1,62 @@
+kind: pipeline
+type: docker
+name: default
+
+concurrency:
+  limit: 1
+
+steps:
+
+- name: build-atmosphere
+  image: appleboy/drone-ssh
+  environment:
+    gituser:
+      from_secret: gituser 
+    gitpass:
+      from_secret: gitpass 
+  settings:
+    host: atmosphere.innovare.es
+    username:
+      from_secret: ssh_dev_user
+    password:
+      from_secret: ssh_dev_password
+    port: 22
+    script:
+      - cd /home/developer/Atmosphere/Atmosphere/
+      - git pull --recurse-submodules https://$gituser:$gitpass@gogs.innovare.es/INNOVARE/Atmosphere
+      - sudo docker build --tag atmosphere:atmosphere .
+
+- name: build-atmosphere-runner  
+  image: appleboy/drone-ssh
+  environment:
+    gituser:
+      from_secret: gituser
+    gitpass:
+      from_secret: gitpass
+  settings:
+    host: atmosphere.innovare.es
+    username:
+      from_secret: ssh_dev_user
+    password:
+      from_secret: ssh_dev_password
+    port: 22
+    script:
+      - cd /home/developer/Atmosphere/atmosphere-runner/       
+      - git pull https://$gituser:$gitpass@gogs.innovare.es/INNOVARE/atmosphere-runner
+      - sudo docker build --tag atmosphere:atmosphere .
+      - sudo docker-compose down  
+      - sudo docker-compose up -d
+
+- name: deploy-atmosphere
+  image: appleboy/drone-ssh
+  settings:
+    host: atmosphere.innovare.es
+    username:
+      from_secret: ssh_dev_user
+    password:
+      from_secret: ssh_dev_password
+    port: 22
+    script:
+      - cd /home/developer/Atmosphere/Atmosphere/
+      - sudo docker-compose down
+      - sudo docker-compose up -d
