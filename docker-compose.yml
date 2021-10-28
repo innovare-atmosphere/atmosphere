@@ -5,7 +5,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /tmp:/tmp
     environment:
-      FRONTEND_URL:"https://atmosphere.innovare.es"
+      FRONTEND_URL: "https://atmosphere.innovare.es"
     image: "atmosphere:atmosphere-runner"
     ports:
       - 3001:80
@@ -13,8 +13,8 @@ services:
     depends_on:
       - "backend"
     environment:
-      BACKEND_URL:"https://atmosphere-backend.innovare.es"
-      COMPILE_VERSION:"${VERSION_TAG}"
+      BACKEND_URL: "https://atmosphere-backend.innovare.es"
+      COMPILE_VERSION: "${VERSION_TAG}"
     image: "atmosphere:atmosphere"
     ports:
      - 3000:3000
