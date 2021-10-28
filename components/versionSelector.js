@@ -1,5 +1,3 @@
-import Link from "next/link";
-import path from "path";
 
 export default function ({ flavors, callback }) {
   return (

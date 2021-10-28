@@ -1,6 +1,5 @@
 import useSWR from "swr";
 import Ansi from "ansi-to-react";
-import { useLocalStorage } from "../lib/useLocalStorage";
 import { Disclosure } from "@headlessui/react";
 import { useState, useEffect } from "react";
 
@@ -67,8 +66,7 @@ const useLogData = (
   };
 };
 
-export default function LogViewer({ uuid }) {
-  const [token, setToken] = useLocalStorage("atmosphere-token", "");
+export default function LogViewer({ uuid, token }) {
   const [statusName, setStatusName] = useState("Warming up");
   const [percentage, setPercentage] = useState("0%");
   const [errorState, setErrorState] = useState(false);
@@ -92,7 +90,7 @@ export default function LogViewer({ uuid }) {
                     {statusName}
                   </span>
                 </div>
-                <div>UUID: {uuid}</div>
+                <div className="text-sm">UUID: {uuid}</div>
                 <div className="text-right">
                   <span className={`text-xs font-semibold inline-block ${errorState?"text-red-600":"text-purple-600"}`}>
                     {percentage}

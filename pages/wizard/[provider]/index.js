@@ -7,7 +7,7 @@ import FormBuilder from "../../../components/formBuilder";
 import LogViewer from "../../../components/logViewer";
 import Captcha from "../../../components/captcha";
 import SimpleDialog from "../../../components/simpleDialog";
-import { useLocalStorage } from "../../../lib/useLocalStorage";
+import useLocalStorage from "../../../lib/useLocalStorage";
 import {
   getProvidersList,
   getProviderData,
@@ -64,7 +64,7 @@ export default function Wizard({ providerData, allFlavors }) {
             ></Captcha>
           </SimpleDialog>
         )}
-        <main className="flex flex-col items-left w-full flex-1 px-20 text-center">
+        <main className="flex flex-col items-left w-full flex-1 px-2 md:px-20 text-center">
           {activeTab == 0 && (
             <Link href={path.join("/")}>
               <a className="flex w-32 justify-center rounded text-gray-400 bg-gray-100 items-center py-2 mb-2 hover:text-white hover:bg-gray-500 hover:shadow">
@@ -138,10 +138,10 @@ export default function Wizard({ providerData, allFlavors }) {
             <div className="justify-center items-center flex w-full">
               <img className="p-2 w-auto h-48" src={providerData.logo} />
             </div>
-            <h1 className="text-3xl mx-64 mb-3 text-center text-gray-700 font-bold">
+            <h1 className="text-3xl mx-4 lg:mx-64 mb-3 text-center text-gray-700 font-bold">
               {providerData.name}
             </h1>
-            <h2 className="text-l text-justify mx-64">
+            <h2 className="text-l text-justify mx-4 lg:mx-64">
               <div
                 dangerouslySetInnerHTML={{ __html: providerData.contentHtml }}
               />
@@ -160,6 +160,7 @@ export default function Wizard({ providerData, allFlavors }) {
             )}
             {activeTab == 1 && (
               <FormBuilder
+                token={token}
                 flavor={selectedFlavor}
                 provider={selectedProvider}
                 executeCallback={(data) => {
@@ -168,7 +169,7 @@ export default function Wizard({ providerData, allFlavors }) {
                 }}
               ></FormBuilder>
             )}
-            {activeTab == 2 && <LogViewer uuid={uuid}></LogViewer>}
+            {activeTab == 2 && <LogViewer token={token} uuid={uuid}></LogViewer>}
           </div>
         </main>
 

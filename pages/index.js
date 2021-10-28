@@ -3,7 +3,7 @@ import Link from "next/link";
 import path from "path";
 import Captcha from "../components/captcha";
 import SimpleDialog from "../components/simpleDialog";
-import { useLocalStorage } from "../lib/useLocalStorage";
+import useLocalStorage from "../lib/useLocalStorage";
 
 import { getProvidersData } from "../lib/providers";
 
@@ -52,7 +52,7 @@ export default function Home({ allProvidersData }) {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <main className="flex flex-col items-left justify-center w-full flex-1 px-20 text-center">
+        <main className="flex flex-col items-left justify-center w-full flex-1 px-2 md:px-20 text-center">
           <h1 className="text-6xl font-bold">
             Welcome to{" "}
             <a
@@ -66,7 +66,7 @@ export default function Home({ allProvidersData }) {
             Select, launch and use Free and Open Source software sass easy.
           </p>
           <div className="flex flex-row mt-6">
-            <div className="flex flex-col w-1/5 hidden">
+            {/*<div className="flex flex-col w-1/5 hidden">
               <div className="flex bg-gray-400 text-gray-100 items-center px-4 py-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -204,12 +204,12 @@ export default function Home({ allProvidersData }) {
                 </svg>
                 Marketing
               </a>
-            </div>
-            <div className="flex flex-col space-y-4 pb-4 w-5/5 border">
+            </div>*/}
+            <div className="flex flex-col space-y-4 pb-4 w-full border">
               {allProvidersData.map(({ id, name, url, logo, contentHtml }) => (
-                <div className="flex border m-4 mb-0 rounded" key={id}>
-                  <div className="w-64 bg-gradient-to-t to-gray-300 from-gray-200 border-r rounded-l">
-                    <div className="justify-center items-center flex w-64">
+                <div className="flex flex-col md:flex-row border m-4 mb-0 rounded" key={id}>
+                  <div className="w-full md:w-64 bg-gradient-to-t to-gray-300 from-gray-200 border-r rounded-l">
+                    <div className="justify-center items-center flex md:w-64">
                       <img className="p-2 w-auto h-14" src={logo} />
                     </div>
                     <div className="flex flex-row p-2 justify-center">
@@ -256,7 +256,7 @@ export default function Home({ allProvidersData }) {
                         />
                       </svg>
                     </a>
-                    <div className="max-h-16 overflow-auto">
+                    <div className="md:max-h-16 overflow-auto">
                       <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
                     </div>
                   </div>
