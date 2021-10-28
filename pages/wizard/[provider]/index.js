@@ -5,6 +5,8 @@ import path from "path";
 import VersionSelector from "../../../components/versionSelector";
 import FormBuilder from "../../../components/formBuilder";
 import LogViewer from "../../../components/logViewer";
+import Captcha from "../../../components/captcha";
+import SimpleDialog from "../../../components/simpleDialog";
 import { useLocalStorage } from "../../../lib/useLocalStorage";
 import {
   getProvidersList,
