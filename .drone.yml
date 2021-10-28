@@ -50,7 +50,7 @@ steps:
     script:
       - cd /home/developer/Atmosphere/atmosphere-runner/       
       - git pull https://$${GITUSER}:$${GITPASS}@gogs.innovare.es/INNOVARE/atmosphere-runner
-      - sudo docker build --tag atmosphere:atmosphere .
+      - sudo docker build --tag atmosphere:atmosphere-runner .
 
 - name: deploy-atmosphere
   image: appleboy/drone-ssh
