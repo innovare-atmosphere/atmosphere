@@ -6,7 +6,6 @@ services:
       - /tmp:/tmp
     environment:
       - FRONTEND_URL=https://atmosphere.innovare.es
-      - COMPILE_VERSION=${VERSION_TAG}
     image: "atmosphere:atmosphere-runner"
     ports:
       - 3001:80
@@ -15,6 +14,7 @@ services:
       - "backend"
     environment:
       - BACKEND_URL=https://atmosphere-backend.innovare.es
+      - COMPILE_VERSION=${VERSION_TAG}
     image: "atmosphere:atmosphere"
     ports:
      - 3000:3000
