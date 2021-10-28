@@ -33,9 +33,9 @@ steps:
 - name: build-atmosphere-runner  
   image: appleboy/drone-ssh
   environment:
-    gituser:
+    GITUSER:
       from_secret: gituser
-    gitpass:
+    GITPASS:
       from_secret: gitpass
   settings:
     host: atmosphere.innovare.es
@@ -49,7 +49,7 @@ steps:
       - gitpass
     script:
       - cd /home/developer/Atmosphere/atmosphere-runner/       
-      - git pull https://$${gituser}:$${gitpass}@gogs.innovare.es/INNOVARE/atmosphere-runner
+      - git pull https://$${GITUSER}:$${GITPASS}@gogs.innovare.es/INNOVARE/atmosphere-runner
       - sudo docker build --tag atmosphere:atmosphere .
 
 - name: deploy-atmosphere
