@@ -11,9 +11,9 @@ steps:
 - name: build-atmosphere
   image: appleboy/drone-ssh
   environment:
-    gituser:
+    GITUSER:
       from_secret: gituser 
-    gitpass:
+    GITPASS:
       from_secret: gitpass 
   settings:
     host: atmosphere.innovare.es
@@ -27,7 +27,7 @@ steps:
       - gitpass
     script:
       - cd /home/developer/Atmosphere/Atmosphere/
-      - git pull --recurse-submodules https://$${gituser}:$${gitpass}@gogs.innovare.es/INNOVARE/Atmosphere
+      - git pull --recurse-submodules https://$${GITUSER}:$${GITPASS}@gogs.innovare.es/INNOVARE/Atmosphere
       - sudo docker build --tag atmosphere:atmosphere .
 
 - name: build-atmosphere-runner  
