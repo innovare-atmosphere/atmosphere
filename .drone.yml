@@ -22,9 +22,12 @@ steps:
     password:
       from_secret: ssh_dev_password
     port: 22
+    envs:
+      - gituser
+      - gitpass
     script:
       - cd /home/developer/Atmosphere/Atmosphere/
-      - git pull --recurse-submodules https://$gituser:$gitpass@gogs.innovare.es/INNOVARE/Atmosphere
+      - git pull --recurse-submodules https://$${gituser}:$${gitpass}@gogs.innovare.es/INNOVARE/Atmosphere
       - sudo docker build --tag atmosphere:atmosphere .
 
 - name: build-atmosphere-runner  
@@ -41,9 +44,12 @@ steps:
     password:
       from_secret: ssh_dev_password
     port: 22
+    envs:
+      - gituser
+      - gitpass
     script:
       - cd /home/developer/Atmosphere/atmosphere-runner/       
-      - git pull https://$gituser:$gitpass@gogs.innovare.es/INNOVARE/atmosphere-runner
+      - git pull https://$${gituser}:$${gitpass}@gogs.innovare.es/INNOVARE/atmosphere-runner
       - sudo docker build --tag atmosphere:atmosphere .
 
 - name: deploy-atmosphere
