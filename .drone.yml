@@ -42,4 +42,4 @@ steps:
     script:
       - cd /home/developer/Atmosphere/Atmosphere/
       - sudo docker-compose down
-      - sudo COMPILE_VERSION=${DRONE_COMMIT} docker-compose up -d
+      - sudo VERSION_TAG=${DRONE_COMMIT} /usr/local/bin/docker-compose up -d
