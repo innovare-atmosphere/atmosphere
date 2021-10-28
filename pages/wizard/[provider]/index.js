@@ -52,7 +52,7 @@ export default function Wizard({ providerData, allFlavors }) {
         {!token && (
           <SimpleDialog
             title="Welcome human!"
-            description="This is probably your first time here"
+            description="This is probably your first time here (or we did some changes)"
           >
             <p>We need to make sure you're a real person</p>
             <Captcha
