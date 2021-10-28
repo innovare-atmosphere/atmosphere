@@ -34,8 +34,8 @@ export default function Captcha({ captchaValidator }) {
       method: "POST",
     });
     const result = await res.json();
-    captchaValidator(result);
     setFinishedState(result.valid);
+    captchaValidator(result);
     if (!result.valid) {
       mutate(`${process.env.NEXT_PUBLIC_RUNNER_URL}/token`);
     }

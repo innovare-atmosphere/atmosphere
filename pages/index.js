@@ -17,10 +17,13 @@ export async function getStaticProps() {
 }
 
 export default function Home({ allProvidersData }) {
-  const [token, setToken] = useLocalStorage("atmosphere-token", "");
+  const [token, setToken] = useLocalStorage(
+    `atmosphere-token${process.env.NEXT_PUBLIC_VERSION}`,
+    ""
+  );
   return (
     <>
-      {(!token) && (
+      {!token && (
         <SimpleDialog
           title="Welcome human!"
           description="This is probably your first time here"
@@ -202,9 +205,7 @@ export default function Home({ allProvidersData }) {
                 Marketing
               </a>
             </div>
-            <div
-              className="flex flex-col space-y-4 pb-4 w-5/5 border"
-            >
+            <div className="flex flex-col space-y-4 pb-4 w-5/5 border">
               {allProvidersData.map(({ id, name, url, logo, contentHtml }) => (
                 <div className="flex border m-4 mb-0 rounded" key={id}>
                   <div className="w-64 bg-gradient-to-t to-gray-300 from-gray-200 border-r rounded-l">
@@ -265,7 +266,7 @@ export default function Home({ allProvidersData }) {
           </div>
         </main>
 
-        <footer className="flex items-center justify-center w-full h-24 border-t">
+        <footer className="flex flex-col items-center justify-center w-full h-24 border-t">
           <a
             className="flex items-center justify-center"
             href="https://innovare.es"
@@ -275,6 +276,9 @@ export default function Home({ allProvidersData }) {
             Powered by{" "}
             <img src="/innovare.svg" alt="Innovare Logo" className="h-4 ml-2" />
           </a>
+          <p className="text-xs text-gray-700">
+            Version [{process.env.NEXT_PUBLIC_VERSION}]
+          </p>
         </footer>
       </div>
     </>

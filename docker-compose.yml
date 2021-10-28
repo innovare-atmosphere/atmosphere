@@ -6,6 +6,7 @@ services:
       - /tmp:/tmp
     environment:
       - FRONTEND_URL=https://atmosphere.innovare.es
+      - COMPILE_VERSION=${DRONE_COMMIT}
     image: "atmosphere:atmosphere-runner"
     ports:
       - 3001:80

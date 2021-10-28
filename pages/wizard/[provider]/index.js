@@ -1,7 +1,8 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import path from "path";
+import Router from "next/router";
 import VersionSelector from "../../../components/versionSelector";
 import FormBuilder from "../../../components/formBuilder";
 import LogViewer from "../../../components/logViewer";
@@ -31,6 +32,10 @@ export async function getStaticProps({ params }) {
 }
 
 export default function Wizard({ providerData, allFlavors }) {
+  const [token, setToken] = useLocalStorage(
+    `atmosphere-token${process.env.NEXT_PUBLIC_VERSION}`,
+    ""
+  );
   const [activeTab, setActiveTab] = useState(0);
   const [selectedProvider, setSelectedProvider] = useState(providerData.name);
   const [selectedFlavor, setSelectedFlavor] = useState(undefined);
@@ -42,7 +47,21 @@ export default function Wizard({ providerData, allFlavors }) {
           <title>Atmosphere - Wizard</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-
+        {!token && (
+          <SimpleDialog
+            title="Welcome human!"
+            description="This is probably your first time here"
+          >
+            <p>We need to make sure you're a real person</p>
+            <Captcha
+              captchaValidator={(x) => {
+                if (x.valid) {
+                  setToken(x.token);
+                }
+              }}
+            ></Captcha>
+          </SimpleDialog>
+        )}
         <main className="flex flex-col items-left w-full flex-1 px-20 text-center">
           {activeTab == 0 && (
             <Link href={path.join("/")}>
@@ -137,15 +156,17 @@ export default function Wizard({ providerData, allFlavors }) {
                 }}
               ></VersionSelector>
             )}
-            {(activeTab == 1) && (
-              <FormBuilder flavor={selectedFlavor} provider={selectedProvider} executeCallback={(data) =>{
-                setUuid(data.uuid);
-                setActiveTab(2);
-              }}></FormBuilder>
+            {activeTab == 1 && (
+              <FormBuilder
+                flavor={selectedFlavor}
+                provider={selectedProvider}
+                executeCallback={(data) => {
+                  setUuid(data.uuid);
+                  setActiveTab(2);
+                }}
+              ></FormBuilder>
             )}
-            {(activeTab == 2) && (
-              <LogViewer uuid={uuid}></LogViewer>
-            )}
+            {activeTab == 2 && <LogViewer uuid={uuid}></LogViewer>}
           </div>
         </main>
 
