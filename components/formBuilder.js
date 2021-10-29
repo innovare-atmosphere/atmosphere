@@ -27,7 +27,8 @@ async function submit(
 ) {
   event.preventDefault();
   let body = {};
-  const items = [...new Set(event.target.elements)];
+  console.testing = event;
+  const items = [...new Set(event.target.elements)].filter( item => item.name != "");
   items.map(({ name, value }) => {
     body[name] = value;
   });
