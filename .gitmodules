@@ -1,3 +1,7 @@
+[submodule "providers/airbyte/flavors"]
+        path = providers/airbyte/flavors
+        url = https://github.com/innovare-atmosphere/airbyte
+
 [submodule "providers/odoo/flavors"]
 	path = providers/odoo/flavors
 	url = https://github.com/innovare-atmosphere/odoo
