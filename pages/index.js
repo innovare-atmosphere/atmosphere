@@ -41,7 +41,7 @@ export default function Home({ allProvidersData }) {
       <div className="flex flex-row-reverse space-x-4 space-x-reverse p-2">
         <a
           className="flex text-gray-400 items-center border px-4 py-2 hover:text-gray-600 hover:shadow"
-          href="https://github.com/boriscougar/atmosphere/"
+          href="https://github.com/innovare-atmosphere"
         >
           Github
         </a>
