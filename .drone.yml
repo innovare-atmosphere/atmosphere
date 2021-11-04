@@ -28,6 +28,8 @@ steps:
     script:
       - cd /home/developer/Atmosphere/Atmosphere/
       - git pull --recurse-submodules https://$${GITUSER}:$${GITPASS}@gogs.innovare.es/INNOVARE/Atmosphere
+      - git submodule init
+      - git submodule update
       - sudo docker build --tag atmosphere:atmosphere .
 
 - name: deploy-atmosphere
