@@ -47,11 +47,15 @@ const useLogData = (
         if (data.status.error_status || error) {
           setStatusName("Error");
           setColorState("red");
-        } else if (data.status.output_init && !data.status.completed) {
-          setPercentage("20%");
+        } else if (data.status.output_init && !data.status.completed && !data.status.output_apply) {
+          const advancement = data.status.output_init.length/2000;
+          const number = Math.round(20 + (advancement<20?advancement:19));
+          setPercentage(`${number}%`);
           setStatusName("Applying");
         } else if (data.status.output_apply && !data.status.completed) {
-          setPercentage("40%");
+          const advancement = data.status.output_apply.length/2000;
+          const number = Math.round(40 + (advancement<60?advancement:59));
+          setPercentage(`${number}%`);
           setStatusName("Applying");
         } else if (data.status.completed) {
           setPercentage("100%");
@@ -182,17 +186,22 @@ export default function LogViewer({ uuid, token }) {
                 </div>
               </div>
               <div
-                className={`overflow-hidden h-2 mb-4 text-xs flex rounded bg-${colorState}-200`}
+                className={`animate-pulse overflow-hidden h-2 mb-4 text-xs flex rounded bg-${colorState}-200`}
               >
                 <div
                   style={{ width: percentage }}
                   className={`shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-${colorState}-500`}
                 ></div>
               </div>
+              <div className="flex justify-center hover:shadow-xl text-gray-900 rounded-xl py-2 border-t">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-auto w-8 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+              </div>
             </div>
           </>
         </Disclosure.Button>
-        <Disclosure.Panel className="text-gray-100 shadow bg-gray-700 p-3 pb-6 rounded-b overflow-scroll">
+        <Disclosure.Panel className="text-gray-100 shadow bg-gray-700 p-3 pb-6 rounded-b overflow-scroll max-h-96">
           {isError && <p>Error happened!</p>}
           {isLoading && <p>Please wait...</p>}
           {log && log.status && (
