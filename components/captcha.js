@@ -98,7 +98,7 @@ export default function Captcha({ captchaValidator }) {
             className="border w-full bg-purple-400 text-white p-3 rounded hover:bg-purple-600 hover:shadow"
             type="submit"
           >
-            Validar
+            Validate
           </button>
         </form>
       )}
