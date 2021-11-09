@@ -49,7 +49,7 @@ const useLogData = (
           setColorState("red");
         } else if (data.status.output_init && !data.status.completed && !data.status.output_apply) {
           const advancement = data.status.output_init.length/2000;
-          const number = Math.round(20 + (advancement<20?advancement:19));
+          const number = Math.round(10 + (advancement<20?advancement:19));
           setPercentage(`${number}%`);
           setStatusName("Applying");
         } else if (data.status.output_apply && !data.status.completed) {
