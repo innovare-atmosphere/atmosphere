@@ -35,7 +35,7 @@ export async function getStaticProps({ params }) {
 
 export default function Wizard({ providerData, allFlavors }) {
   const [token, setToken] = useLocalStorage(
-    `atmosphere-token${process.env.NEXT_PUBLIC_VERSION}`,
+    `atmosphere-token`,
     ""
   );
   const [activeTab, setActiveTab] = useState(0);

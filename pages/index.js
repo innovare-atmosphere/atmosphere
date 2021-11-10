@@ -18,7 +18,7 @@ export async function getStaticProps() {
 
 export default function Home({ allProvidersData }) {
   const [token, setToken] = useLocalStorage(
-    `atmosphere-token${process.env.NEXT_PUBLIC_VERSION}`,
+    `atmosphere-token`,
     ""
   );
   return (
