@@ -25,7 +25,7 @@ services:
     environment:
       FRONTEND_URL: "https://atmosphere.innovare.es"
       DB_URL: "postgres://atmosphere:${database_password}@postgres:5432/atmosphere"
-      DO_KEY: "${DO_KEY}"
+      DO_KEY: "${do_key}"
     image: "atmosphere:atmosphere-runner"
     ports:
       - 3001:80

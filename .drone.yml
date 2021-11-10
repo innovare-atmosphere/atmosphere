@@ -35,10 +35,10 @@ steps:
 - name: deploy-atmosphere
   image: appleboy/drone-ssh
   environment:
-    DO_KEY:
-      from_secret: do_key
-    DATABASE_PASSWORD:
-      from_secret: database_password
+      DO_KEY:
+        from_secret: do_key
+      DATABASE_PASSWORD:
+        from_secret: database_password
   settings:
     host: atmosphere.innovare.es
     username:
