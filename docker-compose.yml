@@ -5,7 +5,6 @@ services:
     restart: unless-stopped
     security_opt:
       - no-new-privileges:true
-    pids_limit: 100
     read_only: true
     tmpfs:
       - /tmp

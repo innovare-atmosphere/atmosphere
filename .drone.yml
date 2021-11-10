@@ -34,6 +34,11 @@ steps:
 
 - name: deploy-atmosphere
   image: appleboy/drone-ssh
+  environment:
+    DO_KEY:
+      from_secret: DO_KEY
+    database_password:
+      from_secret: database_password
   settings:
     host: atmosphere.innovare.es
     username:
@@ -41,9 +46,12 @@ steps:
     password:
       from_secret: ssh_dev_password
     port: 22
+    envs:
+      - DO_KEY
+      - database_password
     script:
       - cd /home/developer/Atmosphere/Atmosphere/
       - sudo docker-compose down
-      - sudo VERSION_TAG=${DRONE_COMMIT} /usr/local/bin/docker-compose up -d
+      - sudo do_token=${DO_KEY} database_password=${database_password} VERSION_TAG=${DRONE_COMMIT} /usr/local/bin/docker-compose up -d
       - sudo docker image prune
       - sudo docker volume prune
