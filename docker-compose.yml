@@ -21,6 +21,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /tmp:/tmp
+      - ./migrations:/code/app/migrations
     environment:
       FRONTEND_URL: "https://atmosphere.innovare.es"
       DB_URL: "postgres://atmosphere:${database_password}@postgres:5432/atmosphere"
