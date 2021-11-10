@@ -1,11 +1,32 @@
 version: '3'
 services:
+  postgres:
+    image: postgres:13-alpine
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 100
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /var/run/postgresql
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      # timezone inside container
+      - TZ=UTC
+      # necessary Postgres options/variables
+      - POSTGRES_USER=atmosphere
+      - POSTGRES_PASSWORD=${database_password}
+      - POSTGRES_DB=atmosphere
   backend:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /tmp:/tmp
     environment:
       FRONTEND_URL: "https://atmosphere.innovare.es"
+      DB_URL: "postgres://atmosphere:${database_password}@postgres:5432/atmosphere"
+      DO_KEY: "${DO_KEY}"
     image: "atmosphere:atmosphere-runner"
     ports:
       - 3001:80
@@ -19,3 +40,6 @@ services:
     ports:
      - 3000:3000
     restart: unless-stopped
+volumes:
+  postgres_data:
+    driver: local
