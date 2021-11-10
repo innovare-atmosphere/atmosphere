@@ -36,7 +36,7 @@ steps:
   image: appleboy/drone-ssh
   environment:
     DO_KEY:
-      from_secret: DO_KEY
+      from_secret: do_key
     DATABASE_PASSWORD:
       from_secret: database_password
   settings:
@@ -47,11 +47,11 @@ steps:
       from_secret: ssh_dev_password
     port: 22
     envs:
-      - DO_KEY
+      - do_key
       - database_password
     script:
       - cd /home/developer/Atmosphere/Atmosphere/
       - sudo docker-compose down
-      - sudo DO_KEY=$${DO_KEY} database_password=$${database_password} VERSION_TAG=${DRONE_COMMIT} /usr/local/bin/docker-compose up -d
+      - sudo do_key=$${DO_KEY} database_password=$${DATABASE_PASSWORD} VERSION_TAG=${DRONE_COMMIT} /usr/local/bin/docker-compose up -d
       - sudo docker image prune
       - sudo docker volume prune
