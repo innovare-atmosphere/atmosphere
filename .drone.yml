@@ -52,6 +52,6 @@ steps:
     script:
       - cd /home/developer/Atmosphere/Atmosphere/
       - sudo docker-compose down
-      - sudo do_token=${DO_KEY} database_password=${database_password} VERSION_TAG=${DRONE_COMMIT} /usr/local/bin/docker-compose up -d
+      - sudo DO_KEY=$${DO_KEY} database_password=$${database_password} VERSION_TAG=${DRONE_COMMIT} /usr/local/bin/docker-compose up -d
       - sudo docker image prune
       - sudo docker volume prune
