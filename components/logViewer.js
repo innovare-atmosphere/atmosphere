@@ -48,7 +48,7 @@ const useLogData = (
           setStatusName("Error");
           setColorState("red");
         } else if (data.status.output_init && !data.status.completed && !data.status.output_apply) {
-          const advancement = data.status.output_init.length/2000;
+          const advancement = data.status.output_init.length/500;
           const number = Math.round(10 + (advancement<20?advancement:19));
           setPercentage(`${number}%`);
           setStatusName("Applying");
