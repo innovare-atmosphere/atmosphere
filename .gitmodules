@@ -17,3 +17,6 @@
 [submodule "providers/maetabase/flavors"]
         path = providers/metabase/flavors
         url = https://github.com/innovare-atmosphere/metabase
+[submodule "providers/wordpress/flavors"]
+	path = providers/wordpress/flavors
+	url = git@github.com:innovare-atmosphere/wordpress.git
