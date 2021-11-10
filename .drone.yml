@@ -37,7 +37,7 @@ steps:
   environment:
     DO_KEY:
       from_secret: DO_KEY
-    database_password:
+    DATABASE_PASSWORD:
       from_secret: database_password
   settings:
     host: atmosphere.innovare.es
