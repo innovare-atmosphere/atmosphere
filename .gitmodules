@@ -20,3 +20,6 @@
 [submodule "providers/wordpress/flavors"]
 	path = providers/wordpress/flavors
 	url = https://github.com/innovare-atmosphere/wordpress
+[submodule "providers/nocodb/flavors"]
+	path = providers/nocodb/flavors
+	url = https://github.com/innovare-atmosphere/nocodb
