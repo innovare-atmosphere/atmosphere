@@ -23,3 +23,6 @@
 [submodule "providers/nocodb/flavors"]
 	path = providers/nocodb/flavors
 	url = https://github.com/innovare-atmosphere/nocodb
+[submodule "providers/erpnext/flavors"]
+	path = providers/erpnext/flavors
+	url = https://github.com/innovare-atmosphere/erpnext
