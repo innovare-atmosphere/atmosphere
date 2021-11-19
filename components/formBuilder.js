@@ -1,6 +1,5 @@
 import { useState } from "react";
 import useSWRImmutable from "swr/immutable";
-import useLocalStorage from "../lib/useLocalStorage";
 
 const fetcher = async (url, token) => {
   const options = {

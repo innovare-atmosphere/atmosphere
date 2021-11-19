@@ -1,6 +1,6 @@
-import Head from "next/head";
 import Link from "next/link";
 import path from "path";
+import Layout from "../components/layout";
 import Captcha from "../components/captcha";
 import SimpleDialog from "../components/simpleDialog";
 import useLocalStorage from "../lib/useLocalStorage";
@@ -17,10 +17,7 @@ export async function getStaticProps() {
 }
 
 export default function Home({ allProvidersData }) {
-  const [token, setToken] = useLocalStorage(
-    `atmosphere-token`,
-    ""
-  );
+  const [token, setToken] = useLocalStorage(`atmosphere-token`, "");
   return (
     <>
       {!token && (
@@ -38,35 +35,18 @@ export default function Home({ allProvidersData }) {
           ></Captcha>
         </SimpleDialog>
       )}
-      <div className="flex flex-row-reverse space-x-4 space-x-reverse p-2">
-        <a
-          className="flex text-gray-400 items-center border px-4 py-2 hover:text-gray-600 hover:shadow"
-          href="https://github.com/innovare-atmosphere"
-        >
-          Github
-        </a>
-      </div>
-      <div className="flex flex-col items-center justify-center min-h-screen py-2">
-        <Head>
-          <title>Atmosphere - ready, set, launch</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-
-        <main className="flex flex-col items-left justify-center w-full flex-1 px-2 md:px-20 text-center">
-          <h1 className="text-6xl font-bold">
-            Welcome to{" "}
-            <a
-              className="text-purple-600"
-              href="https://atmosphere.innovare.es"
-            >
-              Atmosphere!
-            </a>
-          </h1>
-          <p className="mt-3 text-2xl">
-            Select, launch and use Free and Open Source software sass easy.
-          </p>
-          <div className="flex flex-row mt-6">
-            {/*<div className="flex flex-col w-1/5 hidden">
+      <Layout className="flex flex-col items-left justify-center w-full flex-1 px-2 md:px-20 text-center">
+        <h1 className="text-6xl font-bold">
+          Welcome to{" "}
+          <a className="text-purple-600" href="https://atmosphere.innovare.es">
+            Atmosphere!
+          </a>
+        </h1>
+        <p className="mt-3 text-2xl">
+          Select, launch and use Free and Open Source software sass easy.
+        </p>
+        <div className="flex flex-row mt-6">
+          {/*<div className="flex flex-col w-1/5 hidden">
               <div className="flex bg-gray-400 text-gray-100 items-center px-4 py-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -205,82 +185,69 @@ export default function Home({ allProvidersData }) {
                 Marketing
               </a>
             </div>*/}
-            <div className="flex flex-col space-y-4 pb-4 w-full border">
-              {allProvidersData.map(({ id, name, url, logo, contentHtml }) => (
-                <div className="flex flex-col md:flex-row border m-4 mb-0 rounded" key={id}>
-                  <div className="w-full md:w-64 bg-gradient-to-t to-gray-300 from-gray-200 border-r rounded-l">
-                    <div className="justify-center items-center flex md:w-64">
-                      <img className="p-2 w-auto h-14" src={logo} />
-                    </div>
-                    <div className="flex flex-row p-2 justify-center">
-                      <Link href={path.join("/wizard", id)}>
-                        <a className="flex w-full justify-center rounded text-gray-100 bg-purple-400 items-center px-4 py-2 mx-1 hover:text-white hover:bg-purple-500 hover:shadow">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-6 w-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
-                            />
-                          </svg>
-                          Launch
-                        </a>
-                      </Link>
-                    </div>
+          <div className="flex flex-col space-y-4 pb-4 w-full border">
+            {allProvidersData.map(({ id, name, url, logo, contentHtml }) => (
+              <div
+                className="flex flex-col md:flex-row border m-4 mb-0 rounded"
+                key={id}
+              >
+                <div className="w-full md:w-64 bg-gradient-to-t to-gray-300 from-gray-200 border-r rounded-l">
+                  <div className="justify-center items-center flex md:w-64">
+                    <img className="p-2 w-auto h-14" src={logo} />
                   </div>
-                  <div className="text-justify mx-1 pl-2 pt-2">
-                    <a
-                      className="flex text-black-400 text-lg font-medium pb-2"
-                      target="_blank"
-                      href={url}
-                    >
-                      {name}
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6 mx-1"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                        />
-                      </svg>
-                    </a>
-                    <div className="md:max-h-16 overflow-auto">
-                      <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
-                    </div>
+                  <div className="flex flex-row p-2 justify-center">
+                    <Link href={path.join("/wizard", id)}>
+                      <a className="flex w-full justify-center rounded text-gray-100 bg-purple-400 items-center px-4 py-2 mx-1 hover:text-white hover:bg-purple-500 hover:shadow">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-6 w-6"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M4 6h16M4 12h16M4 18h7"
+                          />
+                        </svg>
+                        Details
+                      </a>
+                    </Link>
                   </div>
                 </div>
-              ))}
-            </div>
+                <div className="text-justify mx-1 pl-2 pt-2">
+                  <a
+                    className="flex text-black-400 text-lg font-medium pb-2"
+                    target="_blank"
+                    href={url}
+                  >
+                    {name}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6 mx-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                      />
+                    </svg>
+                  </a>
+                  <div className="md:max-h-16 overflow-auto">
+                    <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-        </main>
-
-        <footer className="flex flex-col items-center justify-center w-full h-24 border-t">
-          <a
-            className="flex items-center justify-center"
-            href="https://innovare.es"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Powered by{" "}
-            <img src="/innovare.svg" alt="Innovare Logo" className="h-4 ml-2" />
-          </a>
-          <p className="text-xs text-gray-700">
-            Version [{process.env.NEXT_PUBLIC_VERSION}]
-          </p>
-        </footer>
-      </div>
+        </div>
+      </Layout>
     </>
   );
 }

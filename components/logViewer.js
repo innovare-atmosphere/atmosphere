@@ -1,7 +1,9 @@
 import useSWR from "swr";
+import Link from "next/link";
 import Ansi from "ansi-to-react";
 import { Disclosure } from "@headlessui/react";
 import { useState, useEffect } from "react";
+import path from "path";
 
 const urlExpression =
   /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
@@ -47,14 +49,18 @@ const useLogData = (
         if (data.status.error_status || error) {
           setStatusName("Error");
           setColorState("red");
-        } else if (data.status.output_init && !data.status.completed && !data.status.output_apply) {
-          const advancement = data.status.output_init.length/500;
-          const number = Math.round(10 + (advancement<20?advancement:19));
+        } else if (
+          data.status.output_init &&
+          !data.status.completed &&
+          !data.status.output_apply
+        ) {
+          const advancement = data.status.output_init.length / 500;
+          const number = Math.round(10 + (advancement < 20 ? advancement : 19));
           setPercentage(`${number}%`);
           setStatusName("Applying");
         } else if (data.status.output_apply && !data.status.completed) {
-          const advancement = data.status.output_apply.length/2000;
-          const number = Math.round(40 + (advancement<60?advancement:59));
+          const advancement = data.status.output_apply.length / 2000;
+          const number = Math.round(40 + (advancement < 60 ? advancement : 59));
           setPercentage(`${number}%`);
           setStatusName("Applying");
         } else if (data.status.completed) {
@@ -91,7 +97,83 @@ export default function LogViewer({ uuid, token }) {
 
   return (
     <>
-      {log && log.status && log.status.completed && log.status.output_done &&(
+      {log && log.status && !log.status.completed && (
+        <div className="pb-4 shadow rounded bg-purple-50">
+          <div className="flex mx-4 lg:mx-64 sm:flex-row flex-col items-center justify-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-24 w-24 text-purple-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <p className="text-3xl text-gray-600">This will take ~5 minutes</p>
+          </div>
+          <div className="flex mx-4 lg:mx-64 flex-col bg-white shadow p-4">
+            <div className="flex flex-col pt-2 items-baseline">
+            <p className="text-gray-800">
+                Installation is in progress, you can safely close this page.
+              </p>
+              <p className="text-gray-800">
+                To check your installations later, on the top bar, click
+              </p>
+              <Link href={path.join("/my-account")}>
+                <a className="flex flex-row text-gray-400 items-center border px-4 py-2 hover:text-gray-600 hover:shadow mt-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-4 mr-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
+                    />
+                  </svg>
+                  My account
+                </a>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+      {log && log.status && log.status.completed && log.status.error_status && (
+        <div className="pb-4 shadow rounded bg-red-50">
+          <div className="flex mx-4 lg:mx-64 sm:flex-row flex-col items-center justify-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-24 w-24 text-red-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <p className="text-3xl text-gray-600">Oops! Something went wrong</p>
+          </div>
+          <div className="flex mx-4 lg:mx-64 flex-col bg-white shadow p-4">
+            <p className="text-gray-800">
+              You can check the log by clicking the arrow below.
+            </p>
+          </div>
+        </div>
+      )}
+      {log && log.status && log.status.completed && log.status.output_done && (
         <div className="pb-4 shadow rounded bg-green-50">
           <div className="flex mx-4 lg:mx-64 sm:flex-row flex-col items-center justify-center">
             <svg
@@ -119,7 +201,10 @@ export default function LogViewer({ uuid, token }) {
             {Object.keys(log.status.output_done).map((key) => {
               const { value } = log.status.output_done[key];
               return (
-                <div className="flex flex-col sm:flex-row pt-2 items-baseline" key={key}>
+                <div
+                  className="flex flex-col sm:flex-row pt-2 items-baseline"
+                  key={key}
+                >
                   <p className="flex flex-row text-gray-700">{key}</p>
                   {!value.match(regex) && (
                     <div className="flex flex-row sm:mx-2 p-2 shadow-inner rounded-xl bg-yellow-100 items-start text-gray-500">
@@ -194,9 +279,20 @@ export default function LogViewer({ uuid, token }) {
                 ></div>
               </div>
               <div className="flex justify-center hover:shadow-xl text-gray-900 rounded-xl py-2 border-t">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-auto w-8 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-auto w-8 animate-pulse"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
               </div>
             </div>
           </>
