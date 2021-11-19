@@ -13,7 +13,7 @@ export default function ({ flavors, provider, callback }) {
               Use this software on your own Digitalocean installation
             </p>
             <a
-              onClick={() => callback(provider, flavor)}
+              onClick={() => callback(provider.name, flavor)}
               className="flex w-full justify-center rounded-b text-gray-100 bg-purple-400 items-center px-4 py-2 hover:text-white hover:bg-purple-500 hover:shadow"
             >
               Select
