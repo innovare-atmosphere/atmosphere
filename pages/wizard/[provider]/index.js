@@ -58,7 +58,7 @@ export default function Wizard({ providerData, allFlavors }) {
           ></Captcha>
         </SimpleDialog>
       )}
-      <Layout className="flex flex-col items-left w-full flex-1 px-2 md:px-20 text-center">
+      <Layout className="flex flex-col items-left justify-center w-full flex-1 px-2 md:px-20 text-center">
         {activeTab == 0 && (
           <Link href={path.join("/")}>
             <a className="flex w-32 justify-center rounded text-gray-400 bg-gray-100 items-center py-2 mb-2 hover:text-white hover:bg-gray-500 hover:shadow">

@@ -5,19 +5,19 @@ import path from "path";
 export default function Layout({ children, className }) {
   return (
     <div className={className}>
-      <div className="flex flex-row w-full">
-        <div className="flex flex-row w-2/4 p-2">
+      <div className="flex flex-col sm:flex-row pt-2 w-full">
+        <div className="flex flex-col md:flex-row sm:w-2/4 sm:p-2 w-full">
         <Link href={path.join("/")}>
             <a
-              className="flex text-purple-600 items-center px-4 py-2 shadow hover:text-purple-600 hover:shadow-md"
+              className="flex text-purple-600 items-center px-4 py-2 hover:text-purple-600 hover:shadow-md text-sm sm:text-base sm:border-none shadow border"
             >
               Atmosphere
             </a>
           </Link>
         </div>
-        <div className="flex flex-row-reverse space-x-2 space-x-reverse p-2 w-2/4">
+        <div className="flex md:flex-row-reverse flex-col md:space-x-2 space-x-reverse sm:p-2 sm:w-2/4 w-full">
           <a
-            className="flex text-gray-400 items-center px-4 py-2 hover:text-gray-600 hover:shadow"
+            className="flex flex-row text-gray-400 items-center px-4 py-2 hover:text-gray-600 hover:shadow md:border-none border "
             href="https://github.com/innovare-atmosphere"
             target="_blank"
             rel="noopener noreferrer"
@@ -36,7 +36,7 @@ export default function Layout({ children, className }) {
           </a>
           <Link href={path.join("/my-account")}>
             <a
-              className="flex text-gray-400 items-center border px-4 py-2 hover:text-gray-600 hover:shadow"
+              className="flex text-gray-400 items-center border px-4 py-2 hover:text-gray-600 hover:shadow text-sm sm:text-base"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
