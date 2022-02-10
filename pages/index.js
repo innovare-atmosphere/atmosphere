@@ -200,7 +200,7 @@ export default function Home({ allProvidersData }) {
                       <a className="flex w-full justify-center rounded text-gray-100 bg-purple-400 items-center px-4 py-2 mx-1 hover:text-white hover:bg-purple-500 hover:shadow">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          className="h-6 w-6"
+                          className="h-6 w-6 pr-1"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
@@ -209,36 +209,38 @@ export default function Home({ allProvidersData }) {
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeWidth={2}
-                            d="M4 6h16M4 12h16M4 18h7"
+                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                           />
                         </svg>
-                        Details
+                        Launch options
                       </a>
                     </Link>
                   </div>
                 </div>
                 <div className="text-justify mx-1 pl-2 pt-2">
-                  <a
-                    className="flex text-black-400 text-lg font-medium pb-2"
-                    target="_blank"
-                    href={url}
-                  >
-                    {name}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 mx-1"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                      />
-                    </svg>
-                  </a>
+                  <div className="flex flex-row space-x-2">
+                    <p className="flex text-black-400 text-lg font-medium pb-2">
+                      {name}
+                    </p>
+                    <a target="_blank" className="flex text-gray-500 text-sm h-5 p-1 bg-blue-100 items-center rounded-2xl" href={url}>
+                      {" "}
+                      Website
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-3 w-3"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        />
+                      </svg>
+                    </a>
+                  </div>
                   <div className="md:max-h-16 overflow-auto">
                     <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
                   </div>

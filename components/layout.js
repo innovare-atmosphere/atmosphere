@@ -57,7 +57,6 @@ export default function Layout({ children, className }) {
           </Link>
         </div>
       </div>
-      <div className="flex flex-row-reverse space-x-2 space-x-reverse p-2"></div>
       <div className="flex flex-col min-h-screen py-2">
         <Head>
           <title>Atmosphere - ready, set, launch</title>

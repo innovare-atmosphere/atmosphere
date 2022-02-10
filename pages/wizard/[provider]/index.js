@@ -37,7 +37,7 @@ export async function getStaticProps({ params }) {
 export default function Wizard({ providerData, allFlavors }) {
   const { query } = useRouter();
   const [token, setToken] = useLocalStorage(`atmosphere-token`, "");
-  const [activeTab, setActiveTab] = useState(query.uuid?2:0);
+  const [activeTab, setActiveTab] = useState(query.uuid ? 2 : 0);
   const [selectedProvider, setSelectedProvider] = useState(providerData.name);
   const [selectedFlavor, setSelectedFlavor] = useState(undefined);
   const [uuid, setUuid] = useState(query.uuid);
@@ -130,33 +130,59 @@ export default function Wizard({ providerData, allFlavors }) {
         </div>
         <div className="bg-gray-200 rounded-br rounded-bl pt-3 pb-3">
           <div className="justify-center items-center flex w-full">
-            <img className="p-2 w-auto h-48" src={providerData.logo} />
+            <img className="p-2 w-auto h-auto max-h-48" src={providerData.logo} />
           </div>
           <h1 className="text-3xl mx-4 lg:mx-64 mb-3 text-center text-gray-700 font-bold">
             {providerData.name}
           </h1>
-          <p className="text-l text-justify mx-4 lg:mx-64">
+          <div className="text-l text-justify mx-4 lg:mx-64">
             <div
               dangerouslySetInnerHTML={{ __html: providerData.contentHtml }}
             />
-          </p>
-          <p className="text-l text-justify mx-4 lg:mx-64">
-            <div
-              dangerouslySetInnerHTML={{ __html: providerData.readmeHtml }}
-            />
-          </p>
+          </div>
         </div>
         <div className="flex flex-col text-left">
           {activeTab == 0 && (
-            <VersionSelector
-              flavors={allFlavors}
-              provider={providerData}
-              callback={(provider, flavor) => {
-                setSelectedProvider(provider);
-                setSelectedFlavor(flavor);
-                setActiveTab(1);
-              }}
-            ></VersionSelector>
+            <>
+              <VersionSelector
+                flavors={allFlavors}
+                provider={providerData}
+                callback={(provider, flavor, paymentInformation) => {
+                  setSelectedProvider(provider);
+                  setSelectedFlavor(flavor);
+                  // I guess here we should call an API to check the billing info is valid
+                  console.log(paymentInformation);
+                  setActiveTab(1);
+                }}
+              ></VersionSelector>
+              {/*providerData.readmeHtml && (
+                <div className="flex flex-col text-left">
+                  <a className="text-2xl text-align-left pt-5 mb-2 flex items-center">
+                    About this software
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="ml-1 h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      />
+                    </svg>
+                  </a>
+                  <div
+                    className="markdown-body shadow-xl border px-4 py-2 overflow-auto max-h-60"
+                    dangerouslySetInnerHTML={{
+                      __html: providerData.readmeHtml,
+                    }}
+                  ></div>
+                </div>
+                  )*/}
+            </>
           )}
           {activeTab == 1 && (
             <FormBuilder
