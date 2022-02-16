@@ -26,7 +26,7 @@ services:
       FRONTEND_URL: "https://atmosphere.innovare.es"
       DB_URL: "postgres://atmosphere:${database_password}@postgres:5432/atmosphere"
       DO_KEY: "${do_key}"
-    image: "atmosphere:atmosphere-runner"
+    image: "innovaresoftware/atmosphere-runner:main"
     ports:
       - 3001:80
   frontend:
@@ -35,7 +35,7 @@ services:
     environment:
       BACKEND_URL: "https://atmosphere-backend.innovare.es"
       COMPILE_VERSION: "${VERSION_TAG}"
-    image: "atmosphere:atmosphere"
+    image: "innovaresoftware/atmosphere:main"
     ports:
      - 3000:3000
     restart: unless-stopped
