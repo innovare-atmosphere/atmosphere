@@ -1,5 +1,5 @@
 # Install dependencies only when needed
-FROM node:14 AS deps
+FROM node:alpine AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
@@ -7,17 +7,16 @@ COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 # Rebuild the source code only when needed
-FROM node:14 AS builder
+FROM node:alpine AS builder
 WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
-RUN export NODE_OPTIONS=--openssl-legacy-provider
-RUN --mount=type=secret,id=runner_url \
+RUN export NODE_OPTIONS=--openssl-legacy-provider && --mount=type=secret,id=runner_url \
     RUNNER_URL="$(cat /run/secrets/runner_url)" NEXT_PUBLIC_RUNNER_URL=APP_NEXT_PUBLIC_RUNNER_URL NEXT_PUBLIC_VERSION=APP_NEXT_PUBLIC_VERSION yarn build && \
     yarn install --production --ignore-scripts --prefer-offline
 
 # Production image, copy all the files and run next
-FROM node:14 AS runner
+FROM node:alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
