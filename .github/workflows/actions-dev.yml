@@ -1,4 +1,4 @@
-name: Deploy and update
+name: Deploy and update (pre release)
 on:
   push:
     branches:
@@ -14,8 +14,8 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
-          username: ${{ secrets.DOCKER_USERNAME_ATMOSPHERE }}
-          password: ${{ secrets.DOCKER_PASSWORD_ATMOSPHERE }}
+          username: ${{ secrets.DOCKER_USERNAME_ATMOSPHERE_DEV }}
+          password: ${{ secrets.DOCKER_PASSWORD_ATMOSPHERE_DEV }}
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
@@ -31,16 +31,16 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           secrets: |
-            runner_url=${{ secrets.RUNNER_URL_ATMOSPHERE }}
+            runner_url=${{ secrets.RUNNER_URL_ATMOSPHERE_DEV }}
 
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
         with:
-          key: ${{ secrets.SSH_PRIVATE_KEY_ATMOSPHERE }} 
+          key: ${{ secrets.SSH_PRIVATE_KEY_ATMOSPHERE_DEV }} 
           known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
 
       - name: Adding Known Hosts
-        run: ssh-keyscan -H ${{ secrets.SSH_HOST_ATMOSPHERE }} >> ~/.ssh/known_hosts
+        run: ssh-keyscan -H ${{ secrets.SSH_HOST_ATMOSPHERE_DEV }} >> ~/.ssh/known_hosts
 
       - name: Deploy in server
-        run: ssh ${{ secrets.SSH_USER_ATMOSPHERE }}@${{ secrets.SSH_HOST_ATMOSPHERE }} 'sudo docker pull innovaresoftware/atmosphere-runner:main && sudo docker pull innovaresoftware/atmosphere:main && cd '"${{secrets.SSH_HOST_DIR_ATMOSPHERE}}"' && sudo VERSION_TAG='"$GITHUB_SHA"' docker-compose up -d'
+        run: ssh ${{ secrets.SSH_USER_ATMOSPHERE_DEV }}@${{ secrets.SSH_HOST_ATMOSPHERE_DEV }} 'sudo docker pull innovaresoftware/atmosphere-runner:main && sudo docker pull innovaresoftware/atmosphere:main && cd '"${{secrets.SSH_HOST_DIR_ATMOSPHERE_DEV}}"' && sudo VERSION_TAG='"$GITHUB_SHA"' docker-compose up -d'
