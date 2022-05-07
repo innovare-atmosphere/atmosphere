@@ -200,10 +200,39 @@ function PaymentSelector({ total, setValid, setPaymentInformation }) {
   );
 }
 
-function FlavorSelector({ provider, flavor, callback }) {
+function FlavorSelector({ provider, flavor, callback, token }) {
   const [valid, setValid] = useState(provider.pricing === undefined);
   const [paymentInformation, setPaymentInformation] = useState(undefined);
+  const [paymentFailure, setPaymentFailure] = useState("");
   const pricing = provider.pricing.find(item => item.flavor === flavor)
+  const processPayment = () => {
+    //do API call for payment information, dont callback unless all is good
+    // I guess here we should call an API to check the billing info is valid
+    console.log(paymentInformation);
+    setPaymentFailure("Processing payment");
+    // Ejemplo implementando el metodo POST:
+    const response = fetch(`${process.env.NEXT_PUBLIC_RUNNER_URL}/pay`, {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: 'follow', // manual, *follow, error
+      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify({details:{method: '', information: paymentInformation}}) // body data type must match "Content-Type" header
+    });
+    response.then(response => response.json())
+    .then(data => {
+      setPaymentFailure("Payment processed, result: " + data.success);
+      if(data.success){
+        callback(provider.id, flavor, paymentInformation)
+      }
+    })
+  };
   const selector = {
     digitalocean: (provider, flavor) => (
       <>
@@ -260,7 +289,7 @@ function FlavorSelector({ provider, flavor, callback }) {
               <div className=""></div>
             </div>
             <div className="flex flex-row justify-end"></div>
-            <details className="mb-4 p-4">
+            <details className="mb-4 p-4 cursor-pointer">
               <summary className="pl-2 pt-2 text-gray-500 font-bold">
                 Additional costs (billed on your Digitalocean account)
               </summary>
@@ -280,8 +309,9 @@ function FlavorSelector({ provider, flavor, callback }) {
             </details>
           </>
         )}
+        <p>{paymentFailure}</p>
         <button
-          onClick={() => callback(provider.id, flavor, paymentInformation)}
+          onClick={() => processPayment()}
           type="button"
           className={`flex w-full justify-center rounded-b items-center px-4 py-2 ${
             valid
@@ -377,8 +407,9 @@ function FlavorSelector({ provider, flavor, callback }) {
             </div>
           </>
         )}
+        <p>{paymentFailure}</p>
         <button
-          onClick={() => callback(provider.id, flavor, paymentInformation)}
+          onClick={() => processPayment()}
           type="button"
           className={`flex w-full justify-center rounded-b  items-center px-4 py-2 ${
             valid
@@ -413,7 +444,7 @@ function FlavorSelector({ provider, flavor, callback }) {
   );
 }
 
-export default function VersionSelector({ flavors, provider, callback }) {
+export default function VersionSelector({ flavors, provider, callback, token }) {
   const { flavor } = flavors[0];
   //console.log(provider);
   const [selectedFlavor, setSelectedFlavor] = useState(flavor);
@@ -437,6 +468,7 @@ export default function VersionSelector({ flavors, provider, callback }) {
             provider={provider}
             flavor={selectedFlavor}
             callback={callback}
+            token={token}
           ></FlavorSelector>
         </div>
       </div>

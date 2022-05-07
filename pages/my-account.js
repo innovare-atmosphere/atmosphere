@@ -1,7 +1,7 @@
 import Layout from "../components/layout";
 import useLocalStorage from "../lib/useLocalStorage";
 import SimpleDialog from "../components/simpleDialog";
-import Captcha from "../components/captcha";
+import Login from "../components/login";
 import useSWR from "swr";
 import Link from "next/link";
 import path from "path";
@@ -41,21 +41,26 @@ export default function MyAccount() {
       {!token && (
         <SimpleDialog
           title="Welcome human!"
-          description="This is probably your first time here (or we did some changes)"
+          description="Is this your first time here?"
         >
-          <p>We need to make sure you're a real person</p>
-          <Captcha
+          <p className="text-sm text-gray-800">We need some details to prepare Atmosphere for you.</p>
+          <Login
             captchaValidator={(x) => {
               if (x.valid) {
                 setToken(x.token);
               }
             }}
-          ></Captcha>
+          ></Login>
         </SimpleDialog>
       )}
       <Layout className="flex flex-col items-left justify-center w-full flex-1 px-2 md:px-20 text-center">
         <p className="mt-3 text-2xl">Deployments</p>
         {isLoading && <p>Loading... </p>}
+        {accountData && accountData.all_tasks.length == 0 &&
+          <>
+          Your account doesn't have deployments yet.
+          </>
+        }
         {accountData &&
           accountData.all_tasks &&
           accountData.all_tasks.map(

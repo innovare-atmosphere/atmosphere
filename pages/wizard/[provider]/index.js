@@ -5,7 +5,7 @@ import Layout from "../../../components/layout";
 import VersionSelector from "../../../components/versionSelector";
 import FormBuilder from "../../../components/formBuilder";
 import LogViewer from "../../../components/logViewer";
-import Captcha from "../../../components/captcha";
+import Login from "../../../components/login";
 import SimpleDialog from "../../../components/simpleDialog";
 import useLocalStorage from "../../../lib/useLocalStorage";
 import { useRouter } from "next/router";
@@ -46,16 +46,16 @@ export default function Wizard({ providerData, allFlavors }) {
       {!token && (
         <SimpleDialog
           title="Welcome human!"
-          description="This is probably your first time here (or we did some changes)"
+          description="Is this your first time here?"
         >
-          <p>We need to make sure you're a real person</p>
-          <Captcha
+          <p className="text-sm text-gray-800">We need some details to prepare Atmosphere for you.</p>
+          <Login
             captchaValidator={(x) => {
               if (x.valid) {
                 setToken(x.token);
               }
             }}
-          ></Captcha>
+          ></Login>
         </SimpleDialog>
       )}
       <Layout className="flex flex-col items-left justify-center w-full flex-1 px-2 md:px-20 text-center">
@@ -83,7 +83,7 @@ export default function Wizard({ providerData, allFlavors }) {
         {activeTab > 0 && (
           <a
             onClick={() => setActiveTab(activeTab - 1)}
-            className="flex w-32 justify-center rounded text-gray-400 bg-gray-100 items-center py-2 mb-2 hover:text-white hover:bg-gray-500 hover:shadow"
+            className="cursor-pointer flex w-32 justify-center rounded text-gray-400 bg-gray-100 items-center py-2 mb-2 hover:text-white hover:bg-gray-500 hover:shadow"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +105,7 @@ export default function Wizard({ providerData, allFlavors }) {
         <div className="flex flex-row justify-center space-x-0 text-sm">
           <a
             onClick={() => setActiveTab(0)}
-            className={`flex w-full justify-center rounded-tl text-white ${
+            className={`cursor-pointer flex w-full justify-center rounded-tl text-white ${
               activeTab == 0 ? "bg-purple-500" : "bg-purple-400"
             } items-center px-4 py-1`}
           >
@@ -113,7 +113,7 @@ export default function Wizard({ providerData, allFlavors }) {
           </a>
           <a
             onClick={() => setActiveTab(1)}
-            className={`flex w-full justify-center  text-gray-100 ${
+            className={`cursor-pointer flex w-full justify-center  text-gray-100 ${
               activeTab == 1 ? "bg-purple-500" : "bg-purple-400"
             } items-center px-4 py-1`}
           >
@@ -121,7 +121,7 @@ export default function Wizard({ providerData, allFlavors }) {
           </a>
           <a
             onClick={() => setActiveTab(2)}
-            className={`flex w-full justify-center  text-gray-100 ${
+            className={`cursor-pointer flex w-full justify-center  text-gray-100 ${
               activeTab == 2 ? "bg-purple-500" : "bg-purple-400"
             } items-center px-4 py-1`}
           >
@@ -147,13 +147,12 @@ export default function Wizard({ providerData, allFlavors }) {
               <VersionSelector
                 flavors={allFlavors}
                 provider={providerData}
-                callback={(provider, flavor, paymentInformation) => {
+                callback={(provider, flavor) => {
                   setSelectedProvider(provider);
                   setSelectedFlavor(flavor);
-                  // I guess here we should call an API to check the billing info is valid
-                  console.log(paymentInformation);
                   setActiveTab(1);
                 }}
+                token={token}
               ></VersionSelector>
               {/*providerData.readmeHtml && (
                 <div className="flex flex-col text-left">

@@ -1,9 +1,9 @@
 import Link from "next/link";
 import path from "path";
 import Layout from "../components/layout";
-import Captcha from "../components/captcha";
-import SimpleDialog from "../components/simpleDialog";
-import useLocalStorage from "../lib/useLocalStorage";
+//import Captcha from "../components/captcha";
+//import SimpleDialog from "../components/simpleDialog";
+//import useLocalStorage from "../lib/useLocalStorage";
 
 import { getProvidersData } from "../lib/providers";
 
@@ -17,12 +17,12 @@ export async function getStaticProps() {
 }
 
 export default function Home({ allProvidersData }) {
-  const [token, setToken] = useLocalStorage(`atmosphere-token`, "");
+  //const [token, setToken] = useLocalStorage(`atmosphere-token`, "");
   return (
     <>
-      {!token && (
+      {/*!token && (
         <SimpleDialog
-          title="Welcome human!"
+          title="Welcome!"
           description="This is probably your first time here (or we did some changes)"
         >
           <p>We need to make sure you're a real person</p>
@@ -34,7 +34,7 @@ export default function Home({ allProvidersData }) {
             }}
           ></Captcha>
         </SimpleDialog>
-      )}
+          )*/}
       <Layout className="flex flex-col items-left justify-center w-full flex-1 px-2 md:px-20 text-center">
         <h1 className="sm:text-6xl text-3xl font-bold">
           Welcome to{" "}
@@ -43,7 +43,10 @@ export default function Home({ allProvidersData }) {
           </a>
         </h1>
         <p className="mt-3 text-2xl">
-          Select, launch and use Free and Open Source software sass easy.
+          Discover, install and use Free and Open Source software the easy route.
+        </p>
+        <p className="text-xl">
+          We want to make you efortlessly try and use free and open source software meant for the cloud.
         </p>
         <div className="flex flex-row mt-6">
           {/*<div className="flex flex-col w-1/5 hidden">
@@ -212,7 +215,7 @@ export default function Home({ allProvidersData }) {
                             d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                           />
                         </svg>
-                        Launch options
+                        Preview
                       </a>
                     </Link>
                   </div>
