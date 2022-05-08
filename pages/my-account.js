@@ -54,6 +54,29 @@ export default function MyAccount() {
         </SimpleDialog>
       )}
       <Layout className="flex flex-col items-left justify-center w-full flex-1 px-2 md:px-20 text-center">
+        <p className="mt-3 text-2xl">My profile</p>
+        <Link href="/">
+          <a 
+            className="p-2 w-full bg-gray-50 flex text-gray-700 justify-center hover:shadow-lg border"
+            onClick={()=>{setToken("")}}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 mr-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              />
+            </svg>
+            Logout
+          </a>
+        </Link>
         <p className="mt-3 text-2xl">Deployments</p>
         {isLoading && <p>Loading... </p>}
         {accountData && accountData.all_tasks.length == 0 &&
