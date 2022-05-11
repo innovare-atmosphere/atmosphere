@@ -50,7 +50,8 @@ export default function MyAccount() {
       }
     );
     const result = await res.json();
-    console.log(result);
+    mutate([`${process.env.NEXT_PUBLIC_RUNNER_URL}/my-tasks`, token]);
+    console.log(result); //TODO: Handle API errors
   };
   const [token, setToken] = useLocalStorage(`atmosphere-token`, "");
   const [isDeleteDialog, setDeleteDialog] = useState(false);
@@ -86,7 +87,6 @@ export default function MyAccount() {
               className="p-2 w-full bg-red-400 flex text-gray-100 justify-center hover:shadow-lg border"
               onClick={() => {
                 handleClick(token, selectedTaskUUID);
-                mutate([`${process.env.NEXT_PUBLIC_RUNNER_URL}/my-tasks`, token]);
                 setDeleteDialog(false);
               }}
             >
