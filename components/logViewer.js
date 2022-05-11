@@ -45,38 +45,46 @@ const useLogData = (
   );
   useEffect(() => {
     if (data) {
-      if (data.status) {
-        if (data.status.error_status || error) {
+      if (data.output) {
+        if ((data.output.status == 'DEPLOY_ERROR') || (data.output.status == 'DESTROY_ERROR') || error) {
           setStatusName("Error");
           setColorState("red");
-        } else if (
-          data.status.output_init &&
-          !data.status.completed &&
-          !data.status.output_apply
-        ) {
-          const advancement = data.status.output_init.length / 500;
-          const number = Math.round(10 + (advancement < 20 ? advancement : 19));
-          setPercentage(`${number}%`);
-          setStatusName("Applying");
-        } else if (data.status.output_apply && !data.status.completed) {
-          const advancement = data.status.output_apply.length / 2000;
-          const number = Math.round(40 + (advancement < 60 ? advancement : 59));
-          setPercentage(`${number}%`);
-          setStatusName("Applying");
-        } else if (data.status.completed) {
+        } 
+        else if (data.output.status == 'LOADING')  {
+          if (data.output.output_init && !data.output.output_apply){
+            const advancement = data.output.output_init.length / 500;
+            const number = Math.round(10 + (advancement < 20 ? advancement : 19));
+            setPercentage(`${number}%`);
+            setStatusName("Applying");
+          } else if (data.output.output_apply){
+            const advancement = data.output.output_apply.length / 2000;
+            const number = Math.round(40 + (advancement < 60 ? advancement : 59));
+            setPercentage(`${number}%`);
+            setStatusName("Applying");
+          } else if (data.output.output_destroy) {
+            setPercentage("10%");
+            setStatusName("Destroying");
+          } else {
+            setPercentage("10%");
+            setStatusName("Initializing");
+          }
+        }
+        else if (data.output.status == 'COMPLETED'){
           setPercentage("100%");
           setStatusName("Finished");
           setColorState("green");
-        } else {
-          setPercentage("10%");
-          setStatusName("Initializing");
+        }
+        else if (data.output.status == 'DESTROYED'){
+          setPercentage("100%");
+          setStatusName("Destroyed");
+          setColorState("purple");
         }
       }
     }
   }, [data]);
   return {
     log: data,
-    isLoading: !error && !(data ? data.status : data),
+    isLoading: !error && !(data ? data.output : data),
     isError: error,
   };
 };
@@ -97,7 +105,7 @@ export default function LogViewer({ uuid, token }) {
 
   return (
     <>
-      {log && log.status && !log.status.completed && (
+      {log && log.output && log.output.status == "LOADING" && (
         <div className="pb-4 shadow rounded bg-purple-50">
           <div className="flex mx-4 lg:mx-64 sm:flex-row flex-col items-center justify-center">
             <svg
@@ -147,7 +155,7 @@ export default function LogViewer({ uuid, token }) {
           </div>
         </div>
       )}
-      {log && log.status && log.status.completed && log.status.error_status && (
+      {log && log.output && (log.output.status == "DEPLOY_ERROR"||log.output.status == "DESTROY_ERROR") && (
         <div className="pb-4 shadow rounded bg-red-50">
           <div className="flex mx-4 lg:mx-64 sm:flex-row flex-col items-center justify-center">
             <svg
@@ -173,7 +181,7 @@ export default function LogViewer({ uuid, token }) {
           </div>
         </div>
       )}
-      {log && log.status && log.status.completed && log.status.output_done && (
+      {log && log.output && log.output.status == "COMPLETED" && (
         <div className="pb-4 shadow rounded bg-green-50">
           <div className="flex mx-4 lg:mx-64 sm:flex-row flex-col items-center justify-center">
             <svg
@@ -198,8 +206,8 @@ export default function LogViewer({ uuid, token }) {
             <p className="text-gray-800">
               You can start using the software with the following information
             </p>
-            {Object.keys(log.status.output_done).map((key) => {
-              const { value } = log.status.output_done[key];
+            {Object.keys(log.output.output_done).map((key) => {
+              const { value } = log.output.output_done[key];
               return (
                 <div
                   className="flex flex-col sm:flex-row pt-2 items-baseline"
@@ -300,7 +308,7 @@ export default function LogViewer({ uuid, token }) {
         <Disclosure.Panel className="text-gray-100 shadow bg-gray-700 p-3 pb-6 rounded-b overflow-scroll max-h-96">
           {isError && <p>Error happened!</p>}
           {isLoading && <p>Please wait...</p>}
-          {log && log.status && (
+          {log && log.output && (
             <>
               <pre className="text-green-600 bg-green-200 hidden">
                 Color output green
@@ -322,15 +330,25 @@ export default function LogViewer({ uuid, token }) {
               </pre>
               <pre>Init Output</pre>
               <pre>
-                <Ansi>{log.status.output_init || "-- No output --"}</Ansi>
+                <Ansi>{log.output.output_init || "-- No output --"}</Ansi>
               </pre>
               <pre>Apply Output</pre>
               <pre>
-                <Ansi>{log.status.output_apply || "-- No output --"}</Ansi>
+                <Ansi>{log.output.output_apply || "-- No output --"}</Ansi>
               </pre>
-              {log.status.error && (
+              {log.output.output_destroy && (
+                <pre>
+                  <Ansi>{log.output.output_destroy || "-- No output --"}</Ansi>
+                </pre>
+              )}
+              {log.output.error_deploy && (
                 <pre className="text-red-300">
-                  Error: <Ansi>{log.status.error}</Ansi>
+                  Deploy error: <Ansi>{log.output.error_deploy}</Ansi>
+                </pre>
+              )}
+              {log.output.error_destroy && (
+                <pre className="text-red-300">
+                  Destroy error: <Ansi>{log.output.error_destroy}</Ansi>
                 </pre>
               )}
             </>

@@ -189,7 +189,7 @@ export default function Login({ captchaValidator }) {
               <label>
                 Verification code{" "}
                 <small className="text-xs text-gray-500">
-                  Type the code you received on your e-mail ({selectedEmail}) or {" "}
+                  Type the code you received in your e-mail ({selectedEmail}) or {" "}
                 </small>
                 <small className="text-xs text-gray-600">
                   <a className="hover:underline" onClick={()=>{

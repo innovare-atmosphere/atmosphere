@@ -46,7 +46,7 @@ export default function Home({ allProvidersData }) {
           Discover, install and use Free and Open Source software the easy route.
         </p>
         <p className="text-xl">
-          We want to make you efortlessly try and use free and open source software meant for the cloud.
+          We want to allow you effortlessly try and use free and open source software meant for the cloud.
         </p>
         <div className="flex flex-row mt-6">
           {/*<div className="flex flex-col w-1/5 hidden">
