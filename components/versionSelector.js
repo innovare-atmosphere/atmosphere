@@ -242,10 +242,10 @@ function FlavorSelector({ provider, flavor, callback, token }) {
         </p>
         {provider.pricing && (
           <>
-            <div className="flex flex-row m-4 p-6 bg-gray-100 rounded justify-between items-center">
+            <div className="dark:bg-gray-700 lex flex-row m-4 p-6 bg-gray-100 rounded justify-between items-center">
               <div className="flex flex-col">
                 <p>Installation</p>
-                <p className="text-gray-500 text-sm">
+                <p className="dark:text-gray-400 text-gray-500 text-sm">
                   This is the cost of installing {provider.name} using
                   Atmosphere{" "}
                 </p>
@@ -254,7 +254,7 @@ function FlavorSelector({ provider, flavor, callback, token }) {
                 {pricing.installation.normal !=
                 pricing.installation.discounted ? (
                   <>
-                    <p className="line-through text-gray-600">
+                    <p className="dark:text-gray-500 line-through text-gray-600">
                       US${" "}
                       {parseFloat(
                         pricing.installation.normal
@@ -293,10 +293,10 @@ function FlavorSelector({ provider, flavor, callback, token }) {
               <summary className="pl-2 pt-2 text-gray-500 font-bold">
                 Additional costs (billed on your Digitalocean account)
               </summary>
-              <div className="flex flex-row m-4 p-6 bg-gray-100 rounded justify-between">
+              <div className="dark:bg-gray-700 flex flex-row m-4 p-6 bg-gray-100 rounded justify-between">
                 <div className="flex flex-col">
                   <p>Monthly infrastructure cost</p>
-                  <p className="text-gray-500 text-sm">
+                  <p className="dark:text-gray-400 text-gray-500 text-sm">
                     This is the cost of the infrastructure that will be created,
                     Digitalocean will be charging this ammount every month.
                   </p>
@@ -344,7 +344,7 @@ function FlavorSelector({ provider, flavor, callback, token }) {
         </p>
         {provider.pricing && (
           <>
-            <div className="flex flex-row m-4 p-6 bg-gray-100 rounded justify-between items-center">
+            <div className="dark:bg-gray-700 flex flex-row m-4 p-6 bg-gray-100 rounded justify-between items-center">
               <div className="flex flex-col">
                 <p>Installation</p>
                 <p className="text-gray-500 text-sm">
@@ -356,7 +356,7 @@ function FlavorSelector({ provider, flavor, callback, token }) {
                 {pricing.installation.normal !=
                 pricing.installation.discounted ? (
                   <>
-                    <p className="line-through text-gray-600">
+                    <p className="dark:text-gray-500 line-through text-gray-600">
                       US${" "}
                       {parseFloat(
                         pricing.installation.normal
@@ -381,7 +381,7 @@ function FlavorSelector({ provider, flavor, callback, token }) {
                 )}
               </div>
             </div>
-            <div className="flex flex-row m-4 p-6 bg-gray-100 rounded justify-between">
+            <div className="dark:bg-gray-700 flex flex-row m-4 p-6 bg-gray-100 rounded justify-between">
               <div className="flex flex-col">
                 <p>Monthly infrastructure cost</p>
                 <p className="text-gray-500 text-sm">

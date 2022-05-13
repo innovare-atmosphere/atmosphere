@@ -58,10 +58,10 @@ export default function Wizard({ providerData, allFlavors }) {
           ></Login>
         </SimpleDialog>
       )}
-      <Layout className="flex flex-col items-left justify-center w-full flex-1 px-2 md:px-20 text-center">
+      <Layout className="dark:bg-gray-900 dark:text-gray-200 flex flex-col items-left justify-center w-full flex-1 px-2 md:px-20 text-center">
         {activeTab == 0 && (
           <Link href={path.join("/")}>
-            <a className="flex w-32 justify-center rounded text-gray-400 bg-gray-100 items-center py-2 mb-2 hover:text-white hover:bg-gray-500 hover:shadow">
+            <a className="dark:bg-gray-600 flex w-32 justify-center rounded text-gray-400 bg-gray-100 items-center py-2 mb-2 hover:text-white hover:bg-gray-500 hover:shadow">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -83,7 +83,7 @@ export default function Wizard({ providerData, allFlavors }) {
         {activeTab > 0 && (
           <a
             onClick={() => setActiveTab(activeTab - 1)}
-            className="cursor-pointer flex w-32 justify-center rounded text-gray-400 bg-gray-100 items-center py-2 mb-2 hover:text-white hover:bg-gray-500 hover:shadow"
+            className="dark:bg-gray-600 cursor-pointer flex w-32 justify-center rounded text-gray-400 bg-gray-100 items-center py-2 mb-2 hover:text-white hover:bg-gray-500 hover:shadow"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -128,11 +128,11 @@ export default function Wizard({ providerData, allFlavors }) {
             Step 3 - Launch summary
           </a>
         </div>
-        <div className="bg-gray-200 rounded-br rounded-bl pt-3 pb-3">
+        <div className="dark:bg-gray-800 bg-gray-200 rounded-br rounded-bl pt-3 pb-3">
           <div className="justify-center items-center flex w-full">
             <img className="p-2 w-auto h-auto max-h-48" src={providerData.logo} />
           </div>
-          <h1 className="text-3xl mx-4 lg:mx-64 mb-3 text-center text-gray-700 font-bold">
+          <h1 className="dark:text-gray-400 text-3xl mx-4 lg:mx-64 mb-3 text-center text-gray-700 font-bold">
             {providerData.name}
           </h1>
           <div className="text-l text-justify mx-4 lg:mx-64">
