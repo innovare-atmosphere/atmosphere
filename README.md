@@ -4,15 +4,23 @@
 
 # Atmosphere
 
-Installing FOSS / OSS and software on the cloud should be easier. Tools exist, cloud providers exist, yet you need technical knowledge or someone to guide you trough the process. Atmosphere attempts to close the gap doing cross-compatible-cloud installations. 
+Installing FOSS / OSS and software on the cloud should be easier. Tools exist, cloud providers exist, yet you need technical knowledge or someone to guide you trough the process. Atmosphere attempts to close the gap doing installations easier. 
+
+Try it here: You can try it at [atmosphere.innovare.es](https://atmosphere.innovare.es)
+
+## Development
 
 Behind the scenes we use Terraform, which sets the base to speak with multiple cloud providers.
 
+Currently Innovare-Atmosphere uses digitalocean to provide the installation of virtually any open source solution that can be installed with a Terraform configuration.
+
+There is a set of Terraform configurations that have been tested, you can check them out in our repository list:
+
+https://github.com/innovare-atmosphere
+
+## Installation (development)
+
 TODO: Insert current state and more details here
-
-## Site
-
-You can try the release site at [atmosphere.innovare.es](https://atmosphere.innovare.es)
 
 ## Contributing
 
