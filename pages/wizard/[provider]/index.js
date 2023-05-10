@@ -40,6 +40,7 @@ export default function Wizard({ providerData, allFlavors }) {
   const [activeTab, setActiveTab] = useState(query.uuid ? 2 : 0);
   const [selectedProvider, setSelectedProvider] = useState(providerData.name);
   const [selectedFlavor, setSelectedFlavor] = useState(undefined);
+  const [puuid, setPuuid] = useState(undefined);
   const [uuid, setUuid] = useState(query.uuid);
   return (
     <>
@@ -147,9 +148,10 @@ export default function Wizard({ providerData, allFlavors }) {
               <VersionSelector
                 flavors={allFlavors}
                 provider={providerData}
-                callback={(provider, flavor) => {
+                callback={(provider, flavor, puuid) => {
                   setSelectedProvider(provider);
                   setSelectedFlavor(flavor);
+                  setPuuid(puuid);
                   setActiveTab(1);
                 }}
                 token={token}
@@ -188,6 +190,7 @@ export default function Wizard({ providerData, allFlavors }) {
               token={token}
               flavor={selectedFlavor}
               provider={selectedProvider}
+              puuid={puuid}
               executeCallback={(data) => {
                 setUuid(data.uuid);
                 setActiveTab(2);

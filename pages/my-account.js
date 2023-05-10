@@ -2,6 +2,7 @@ import Layout from "../components/layout";
 import useLocalStorage from "../lib/useLocalStorage";
 import SimpleDialog from "../components/simpleDialog";
 import Login from "../components/login";
+import AddFunds from "../components/addFunds";
 import useSWR from "swr";
 import { useSWRConfig } from "swr";
 import Link from "next/link";
@@ -22,18 +23,6 @@ const fetcher = async (url, token) => {
   }
   return x;
 };
-
-function usePaymentURL(token) {
-  const { data, error } = useSWR(
-    [`${process.env.NEXT_PUBLIC_RUNNER_URL}/payment/10`, token],
-    fetcher
-  );
-  return {
-    paymentURLData: data,
-    isLoadingPaymentURL: !error && !data,
-    isErrorPaymentURL: error,
-  };
-}
 
 function useMyAccount(token) {
   const { data, error } = useSWR(
@@ -65,28 +54,10 @@ export default function MyAccount() {
     mutate([`${process.env.NEXT_PUBLIC_RUNNER_URL}/my-account`, token]);
     console.log(result); //TODO: Handle API errors
   };
-  const handleClickPaymentURL = async (token) => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_RUNNER_URL}/payment/10`,
-      {
-        //body: JSON.stringify({}),
-        headers: {
-          "Content-Type": "application/json",
-          token: token,
-        },
-        method: "GET",
-      }
-    );
-    const result = await res.json();
-    mutate([`${process.env.NEXT_PUBLIC_RUNNER_URL}/payment/10`, token]);
-    console.log(result); //TODO: Handle API errors
-  }
   const [token, setToken] = useLocalStorage(`atmosphere-token`, "");
-  const [isPaymentDialog, setPaymentDialog] = useState(false);
   const [isDeleteDialog, setDeleteDialog] = useState(false);
   const [selectedTaskUUID, setSelectedTaskUUID] = useState(undefined);
   const { accountData, isLoading, isError } = useMyAccount(token);
-  const { paymentURLData, isLoadingPaymentURL, isErrorPaymentURL } = usePaymentURL(token);
   return (
     <>
       {!token && (
@@ -163,36 +134,6 @@ export default function MyAccount() {
           </div>
         </SimpleDialog>
       )}
-      {isPaymentDialog && (
-        <SimpleDialog
-          title="Add funds"
-          description="Continue to add US$10.00 credits into your account"
-        >
-          <div className="flex flex-col">
-            {isLoadingPaymentURL && (
-              <p>Loading...</p>
-            )}
-            {paymentURLData && (
-              <>
-                <p className="text-sm text-gray-800 mb-2" >By clicking on "<a
-                  href={`${paymentURLData.redirect_url}`}> Continue to payment
-                </a>" you will be sent to our payment gateway "Pagadito" where you can safely add your payment information, you'll be charged for US$10.00.
-                </p>
-                <p className="text-sm text-gray-800">Once the payment is completed the credit will be added on your account.</p>
-                <a
-                  className="p-2 mb-5 mt-5 rounded-full bg-purple-600 flex text-gray-50 text-xs justify-center hover:shadow-lg"
-                  href={`${paymentURLData.redirect_url}`}> Continue to payment
-                </a>
-                <a className="p-2 mb-5 rounded-full bg-gray-400 flex text-gray-50 text-xs justify-center hover:shadow-lg" onClick={() => {
-                  setPaymentDialog(false);
-                }}>Cancel</a>
-              </>
-            )}
-          </div>
-          <div className="flex flex-row">
-          </div>
-        </SimpleDialog>
-      )}
       <Layout className="dark:bg-gray-900 flex flex-col items-left justify-center w-full flex-1 px-2 md:px-20">
         {accountData && (
           <>
@@ -242,21 +183,10 @@ export default function MyAccount() {
                           </div>
                         </Link>
                       </div >
-                      <p className="mt-5 text-xs">Credits</p>
-                      <p className="mb-3">US$ {balance}</p>
-                      <a
-                        className="p-2 mb-5 md:w-2/5 rounded-full bg-gray-600 flex text-gray-50 text-xs justify-center hover:shadow-lg"
-                        onClick={() => {
-                          handleClickPaymentURL(token);
-                          setPaymentDialog(true);
-                        }}
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
-                        </svg>
-
-                        Add funds
-                      </a>
+                      <AddFunds
+                        balance={balance}
+                        token={token}>
+                      </AddFunds>
                     </>
                   );
                 })}

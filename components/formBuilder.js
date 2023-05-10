@@ -20,6 +20,7 @@ async function submit(
   event,
   provider,
   flavor,
+  puuid,
   token,
   executeCallback,
   setExecutionError
@@ -32,7 +33,7 @@ async function submit(
     body[name] = value;
   });
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_RUNNER_URL}/invoke/${provider}/${flavor}`,
+    `${process.env.NEXT_PUBLIC_RUNNER_URL}/invoke/${provider}/${flavor}/${puuid}`,
     {
       body: JSON.stringify(body),
       headers: {
@@ -70,6 +71,7 @@ function useProviderFlavor(provider, flavor, token) {
 export default function FormBuilder({
   provider,
   flavor,
+  puuid,
   executeCallback,
   token,
 }) {
@@ -97,6 +99,7 @@ export default function FormBuilder({
                 event,
                 provider,
                 flavor,
+                puuid,
                 token,
                 executeCallback,
                 setExecutionError
