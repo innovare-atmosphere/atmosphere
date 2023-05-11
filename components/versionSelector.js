@@ -3,7 +3,7 @@ import PaymentSelector from "./paymentSelector";
 
 function FlavorSelector({ provider, flavor, callback, token }) {
   const [valid, setValid] = useState(provider.pricing === undefined);
-  const [paymentInformation, setPaymentInformation] = useState(undefined);
+  const [paymentInformation, setPaymentInformation] = useState({"type": "balance"});
   const [paymentFailure, setPaymentFailure] = useState("");
   const pricing = provider.pricing.find(item => item.flavor === flavor)
   const processPayment = () => {

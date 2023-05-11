@@ -35,7 +35,7 @@ export default function PaymentSelector({ total, setValid, setPaymentInformation
     const today = new Date();
     const mm = (today.getMonth() + 1)>9? (today.getMonth() + 1): "0"+(today.getMonth() + 1); //January is 0!
     const yyyy = today.getFullYear();
-    const [paymentOption, setPaymentOption] = useState(undefined);
+    const [paymentOption, setPaymentOption] = useState("balance");
     if (total <= 0) {
       setValid(true);
       setPaymentInformation("undefined");
@@ -57,7 +57,7 @@ export default function PaymentSelector({ total, setValid, setPaymentInformation
     const isPaymentOptionValid = {
       "balance": accountData?(accountData.organizations[0].balance > total):false,
       //"new_card": isNewCardValid,
-      "24hours": true,
+      //"24hours": true,
     };
     setValid(isPaymentOptionValid[paymentOption]);
     return (
@@ -74,12 +74,16 @@ export default function PaymentSelector({ total, setValid, setPaymentInformation
                 }}
                 className="border p-2 shadow rounded-xl"
               >
-                <option disabled selected value> -- select a payment option -- </option>
+                {
+                    //<option disabled selected value> -- select a payment option -- </option>
+                }
                 <option value="balance">pay with account balance</option>
                 {
                 // <option value="new_card">pay with a new card</option>
                 }
-                <option value="24hours">use it for free for 24 hours</option>
+                {
+                    //<option value="24hours">use it for free for 24 hours</option>
+                }
               </select>
             </div>
             {paymentOption == "balance" && (
@@ -101,14 +105,14 @@ export default function PaymentSelector({ total, setValid, setPaymentInformation
                 })}
             </div>
             )}
-            {paymentOption == "24hours" && (
+            {/*paymentOption == "24hours" && (
               <p className="text-gray-600 text-sm">
                 * After 24 hours, the system will automatically delete all created
                 resources, you can pay the total of US${" "}
                 {parseFloat(total).toFixed(2)} to preserve your information before
                 the 24 hour period ends.
               </p>
-            )}
+            )*/}
             {/*paymentOption == "new_card" && (
               <form
                 className="flex flex-col mt-4"
