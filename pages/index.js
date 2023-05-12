@@ -19,7 +19,7 @@ export default function Home({ allProvidersData }) {
       <Layout className="dark:bg-gray-900 dark:text-gray-200 flex flex-col items-left justify-center w-full flex-1 px-2 md:px-20 text-center">
         <h1 className="sm:text-6xl text-3xl font-bold">
           Welcome to{" "}
-          <a className="text-purple-600" href="https://atmosphere.innovare.es">
+          <a className="text-purple-600" href="/">
             Atmosphere!
           </a>
         </h1>
