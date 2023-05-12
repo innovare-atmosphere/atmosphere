@@ -129,7 +129,7 @@ export default function Wizard({ providerData, allFlavors }) {
             Step 3 - Launch summary
           </a>
         </div>
-        <div className="dark:bg-gray-800 bg-gray-200 rounded-br rounded-bl pt-3 pb-3">
+        <div className="dark:bg-gray-700 bg-gray-200 rounded-br rounded-bl pt-3 pb-3">
           <div className="justify-center items-center flex w-full">
             <img className="p-2 w-auto h-auto max-h-48" src={providerData.logo} />
           </div>

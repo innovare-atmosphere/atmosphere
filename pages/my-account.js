@@ -351,7 +351,7 @@ export default function MyAccount() {
                                   </div>
                                 )}
                             </div>
-                            <div className="pl-4 pt-2 pb-2">
+                            <div className="pl-4 pt-2 pb-2 dark:bg-gray-700 dark:text-gray-300">
                               <p className="text-left text-sm">
                                 Created at <span>{task.created_at}</span>
                               </p>

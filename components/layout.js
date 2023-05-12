@@ -67,7 +67,7 @@ export default function Layout({ children, className }) {
 
         <footer className="flex flex-col items-center justify-center w-full h-24 border-t">
           <a
-            className="flex items-center justify-center"
+            className="flex items-center justify-center dark:bg-purple-500 dark:rounded-md dark:p-3"
             href="https://innovare.es"
             target="_blank"
             rel="noopener noreferrer"
@@ -75,7 +75,7 @@ export default function Layout({ children, className }) {
             Powered by{" "}
             <img src="/innovare.svg" alt="Innovare Logo" className="h-4 ml-2" />
           </a>
-          <p className="text-xs text-gray-700">
+          <p className="text-xs text-gray-700 dark:text-gray-300">
             Version [{process.env.NEXT_PUBLIC_VERSION}]
           </p>
         </footer>

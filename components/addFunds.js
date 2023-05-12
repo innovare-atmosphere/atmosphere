@@ -17,11 +17,11 @@ export default function AddFunds({balance, token, organization}) {
             >
                 <>
                     <label
-                        className="block text-sm font-medium text-gray-700">
+                        className="block text-sm font-medium text-gray-700 dark:text-gray-400">
                         Funds to add in US${" "}
                     </label>
                     <input
-                        className="border p-1 rounded block w-full"
+                        className="border p-1 rounded block w-full dark:bg-gray-500"
                         type="number"
                         placeholder="10.00"
                         name="fundsToAdd"

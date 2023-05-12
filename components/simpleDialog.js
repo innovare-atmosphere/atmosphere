@@ -15,14 +15,14 @@ export default function SimpleDialog({ children, title, description }) {
         <span className="inline-block h-screen align-middle" aria-hidden="true">
           &#8203;
         </span>
-        <div className="inline-block w-full max-w-lg p-5 overflow-hidden text-left align-middle transition-all transform bg-gray-100 shadow-xl rounded-2xl">
+        <div className="inline-block w-full max-w-lg p-5 overflow-hidden text-left align-middle transition-all transform bg-gray-100 shadow-xl rounded-2xl dark:bg-gray-800 dark:text-gray-300">
           <Dialog.Title
             as="h3"
-            className="text-lg font-medium leading-6 text-gray-900"
+            className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-300"
           >
             {title}
           </Dialog.Title>
-          <Dialog.Description className="text-sm text-gray-600 pb-2">{description}</Dialog.Description>
+          <Dialog.Description className="text-sm text-gray-600 pb-2 dark:text-gray-400">{description}</Dialog.Description>
 
           {children}
         </div>

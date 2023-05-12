@@ -67,12 +67,12 @@ export default function PaymentSelector({ total, setValid, setPaymentInformation
             <div>
               I want to{" "}
               <select
+                className="dark:text-purple-500 border p-2 shadow rounded-xl"
                 onChange={(event) => {
                   setPaymentOption(event.target.value);
                   //setNewCardValid(false);
                   setPaymentInformation({"type": event.target.value});
                 }}
-                className="border p-2 shadow rounded-xl"
               >
                 {
                     //<option disabled selected value> -- select a payment option -- </option>

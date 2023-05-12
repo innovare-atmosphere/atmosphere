@@ -259,7 +259,7 @@ export default function VersionSelector({ flavors, provider, callback, token }) 
         <div className="shadow-md border w-full">
           <h2 className="p-2 pl-4 border-b text-xl">
             Launch {provider.name} on
-            <select onChange={(event) => setSelectedFlavor(event.target.value)}>
+            <select className="dark:text-purple-500" onChange={(event) => setSelectedFlavor(event.target.value)}>
               {flavors.map(({ flavor }) => (
                 <option key={flavor} value={flavor}>
                   {flavor}

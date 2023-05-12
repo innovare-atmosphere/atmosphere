@@ -109,10 +109,10 @@ export default function FormBuilder({
             {Object.values(formData.output.variables)
               .filter((x) => x.required)
               .map(({ name, description, required }) => (
-                <div className="flex-row p-4 bg-purple-100" key={name}>
+                <div className="flex-row p-4 bg-purple-100 dark:bg-purple-900" key={name}>
                   <label
                     htmlFor={name}
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                   >
                     {name}
                     <span className="pl-1 text-xs text-gray-400">
@@ -153,10 +153,10 @@ export default function FormBuilder({
             {Object.values(formData.output.variables)
               .filter((x) => !x.required)
               .map(({ name, description, required }) => (
-                <div className="flex-row p-4 bg-gray-100" key={name}>
+                <div className="flex-row p-4 bg-gray-100 dark:bg-gray-700" key={name}>
                   <label
                     htmlFor={name}
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                   >
                     {name}
                     <span className="pl-1 text-xs text-gray-400">

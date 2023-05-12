@@ -36,7 +36,7 @@ export default function Home({ allProvidersData }) {
                 className="flex flex-col md:flex-row border m-4 mb-0 rounded"
                 key={id}
               >
-                <div className="w-full md:w-64 darK:bg-gray-900 bg-gradient-to-t to-gray-300 from-gray-200 border-r rounded-l">
+                <div className="w-full md:w-64 dark:to-gray-600 dark:from-gray-800 bg-gradient-to-t to-gray-300 from-gray-200 border-r rounded-l">
                   <div className="justify-center items-center flex md:w-64">
                     <img className="p-2 w-auto h-14" src={logo} />
                   </div>

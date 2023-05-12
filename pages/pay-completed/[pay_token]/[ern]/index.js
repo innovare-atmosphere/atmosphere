@@ -126,7 +126,7 @@ export default function PayCompleted(){
                     <p className="text-xl mb-4">Check your email for your receipt.</p>
                     <p>Details: Atmosphere funds for US$ {data.amount}.</p>
                     <p>Transaction ID: {data.ern}</p>
-                    <p>Approval Code (Pagadito): {data.pay_token}</p>
+                    <p>Reference Code (Pagadito): {data.reference}</p>
                     <p className="mt-4 text-sm text-gray-500"> You can now continue installing software by clicking on "Continue" or check your balance in "My Account"</p>
                     <div className="flex justify-center mb-5 mt-5">
                         <Link href={path.join("/my-account")}>

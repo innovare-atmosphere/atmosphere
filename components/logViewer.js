@@ -106,7 +106,7 @@ export default function LogViewer({ uuid, token }) {
   return (
     <>
       {log && log.output && log.output.status == "LOADING" && (
-        <div className="pb-4 shadow rounded bg-purple-50">
+        <div className="pb-4 shadow rounded bg-purple-50 dark:bg-purple-900">
           <div className="flex mx-4 lg:mx-64 sm:flex-row flex-col items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -122,14 +122,14 @@ export default function LogViewer({ uuid, token }) {
                 d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            <p className="text-3xl text-gray-600">This will take ~5 minutes</p>
+            <p className="text-3xl text-gray-600 dark:text-gray-300">This will take ~5 minutes</p>
           </div>
-          <div className="flex mx-4 lg:mx-64 flex-col bg-white shadow p-4">
+          <div className="flex mx-4 lg:mx-64 flex-col bg-white shadow p-4 dark:bg-gray-900">
             <div className="flex flex-col pt-2 items-baseline">
-            <p className="text-gray-800">
+            <p className="text-gray-800 dark:text-gray-200">
                 Installation is in progress, you can safely close this page.
               </p>
-              <p className="text-gray-800">
+              <p className="text-gray-800 dark:text-gray-200">
                 To check your installations later, on the top bar, click
               </p>
               <Link href={path.join("/my-account")}>
@@ -182,7 +182,7 @@ export default function LogViewer({ uuid, token }) {
         </div>
       )}
       {log && log.output && log.output.status == "COMPLETED" && (
-        <div className="pb-4 shadow rounded bg-green-50">
+        <div className="pb-4 shadow rounded bg-green-50 dark:bg-green-900">
           <div className="flex mx-4 lg:mx-64 sm:flex-row flex-col items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -198,12 +198,12 @@ export default function LogViewer({ uuid, token }) {
                 d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
               />
             </svg>
-            <p className="text-3xl text-gray-600">
+            <p className="text-3xl text-gray-600 dark:text-gray-300">
               Installation was successfull!
             </p>
           </div>
-          <div className="flex mx-4 lg:mx-64 flex-col bg-white shadow p-4">
-            <p className="text-gray-800">
+          <div className="flex mx-4 lg:mx-64 flex-col bg-white shadow p-4 dark:bg-gray-700">
+            <p className="text-gray-800 dark:text-gray-300">
               You can start using the software with the following information
             </p>
             {Object.keys(log.output.output_done).map((key) => {
@@ -213,7 +213,7 @@ export default function LogViewer({ uuid, token }) {
                   className="flex flex-col sm:flex-row pt-2 items-baseline"
                   key={key}
                 >
-                  <p className="flex flex-row text-gray-700">{key}</p>
+                  <p className="flex flex-row text-gray-700 dark:text-gray-400">{key}</p>
                   {!value.match(regex) && (
                     <div className="flex flex-row sm:mx-2 p-2 shadow-inner rounded-xl bg-yellow-100 items-start text-gray-500">
                       {value}
