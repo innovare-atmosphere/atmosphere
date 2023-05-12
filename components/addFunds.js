@@ -1,5 +1,7 @@
 import { useState } from "react";
 import SimpleDialog from "./simpleDialog";
+import Link from "next/link";
+import path from "path";
 
 
 export default function AddFunds({balance, token, organization}) {
@@ -34,6 +36,7 @@ export default function AddFunds({balance, token, organization}) {
                             //handleClickPaymentURL(token, ev.target.value);
                         }}>
                     </input>
+                    <p className="text-xs mt-3 text-gray-500">By clicking the "Continue to Payment" button, you acknowledge and agree to the <Link href={path.join("/terms-and-conditions")}><a className="text-purple-600">terms and conditions</a></Link> outlined on this website. Please read these terms carefully before proceeding with your purchase.</p>
                     {isAmountInvalid && (
                         <label className="text-sm text-red-400 pt-1">
                         The minimum ammount to add to your account is US$5.00

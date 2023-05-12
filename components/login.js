@@ -1,6 +1,8 @@
 import useSWRImmutable from "swr/immutable";
 import { useSWRConfig } from "swr";
 import { useState } from "react";
+import Link from "next/link";
+import path from "path";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -164,6 +166,7 @@ export default function Login({ captchaValidator }) {
               Verification code is invalid. Please try again
             </p>
           )}
+          <p className="text-xs mt-2 text-gray-500 p-2">By using this software, you acknowledge and agree to the <Link href={path.join("/terms-and-conditions")}><a className="text-purple-600">terms and conditions</a></Link> outlined on this website. Please read these terms carefully before proceeding.</p>
           <button
             className="border w-full bg-purple-400 text-white p-3 rounded hover:bg-purple-600 hover:shadow"
             type="submit"

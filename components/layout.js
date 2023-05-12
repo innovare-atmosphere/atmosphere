@@ -65,9 +65,9 @@ export default function Layout({ children, className }) {
 
         <main>{children}</main>
 
-        <footer className="flex flex-col items-center justify-center w-full h-24 border-t">
+        <footer className="flex flex-col items-center justify-center w-full min-h-24 border-t">
           <a
-            className="flex items-center justify-center dark:bg-purple-500 dark:rounded-md dark:p-3"
+            className="flex items-center justify-center dark:bg-purple-500 dark:rounded-md dark:p-3 mt-4"
             href="https://innovare.es"
             target="_blank"
             rel="noopener noreferrer"
@@ -75,9 +75,14 @@ export default function Layout({ children, className }) {
             Powered by{" "}
             <img src="/innovare.svg" alt="Innovare Logo" className="h-4 ml-2" />
           </a>
-          <p className="text-xs text-gray-700 dark:text-gray-300">
+          <p className="text-xs text-gray-700 dark:text-gray-300 mb-4">
             Version [{process.env.NEXT_PUBLIC_VERSION}]
           </p>
+          <div className="flex flex-row items-left flex-1 w-full bg-purple-100 rounded-lg p-5">
+            <Link href={path.join("/get-help")}><a className="text-gray-600 mr-1 ml-1 dark:text-gray-300 hover:text-gray-900">Help</a></Link>
+            <p>|</p>
+            <Link href={path.join("/terms-and-conditions")}><a className="text-gray-600 mr-1 ml-1 dark:text-gray-300 hover:text-gray-900">Terms & conditions</a></Link>
+          </div>
         </footer>
       </div>
     </div>
