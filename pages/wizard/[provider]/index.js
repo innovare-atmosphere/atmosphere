@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import path from "path";
 import Layout from "../../../components/layout";
 import VersionSelector from "../../../components/versionSelector";

@@ -87,6 +87,7 @@ function FlavorSelector({ provider, flavor, callback, token }) {
                 total={pricing.installation.discounted}
                 setValid={setValid}
                 setPaymentInformation={setPaymentInformation}
+                provider={provider.id}
               ></PaymentSelector>
               <div className=""></div>
             </div>
@@ -112,6 +113,11 @@ function FlavorSelector({ provider, flavor, callback, token }) {
           </>
         )}
         <p>{paymentFailure}</p>
+        {!valid && (
+          <p className="text-red-400 m-3 text-center">
+            Invalid payment method or insufficient funds available.
+          </p>
+        )}
         <button
           onClick={() => processPayment()}
           type="button"
@@ -205,12 +211,19 @@ function FlavorSelector({ provider, flavor, callback, token }) {
                 }
                 setValid={setValid}
                 setPaymentInformation={setPaymentInformation}
+                flavor={flavor}
+                provider={provider.id}
               ></PaymentSelector>
               <div className=""></div>
             </div>
           </>
         )}
         <p>{paymentFailure}</p>
+        {!valid && (
+          <p className="text-red-400 m-3 text-center">
+            Invalid payment method or insufficient funds available.
+          </p>
+        )}
         <button
           onClick={() => processPayment()}
           type="button"

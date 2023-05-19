@@ -29,7 +29,7 @@ const fetcher = async (url, token) => {
     };
   }
 
-export default function PaymentSelector({ total, setValid, setPaymentInformation, token }) {
+export default function PaymentSelector({ total, setValid, setPaymentInformation, token, provider }) {
 
     const { accountData, isLoading, isError } = useMyAccount(token);
     const today = new Date();
@@ -100,7 +100,8 @@ export default function PaymentSelector({ total, setValid, setPaymentInformation
                       <AddFunds
                         organization={name}
                         balance={balance}
-                        token={token}>
+                        token={token}
+                        provider={provider}>
                       </AddFunds>
                     </>
                     );

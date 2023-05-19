@@ -4,7 +4,7 @@ import Link from "next/link";
 import path from "path";
 
 
-export default function AddFunds({balance, token, organization}) {
+export default function AddFunds({balance, token, organization, provider}) {
     const [isPaymentDialog, setPaymentDialog] = useState(false);
     const [fundsToAdd, setFundsToAdd] = useState(10.00);
     const [isAmountInvalid, setAmountInvalid] = useState(false);
@@ -56,7 +56,10 @@ export default function AddFunds({balance, token, organization}) {
                         disabled={(isAmountInvalid||isLoadingPaymentURL||isErrorPaymentURL)}
                         onClick={() => {
                             setLoadingPaymentURL(true);
-                            const response = fetch(`${process.env.NEXT_PUBLIC_RUNNER_URL}/payment/${fundsToAdd}`,
+                            const uri_no_which = `${process.env.NEXT_PUBLIC_RUNNER_URL}/payment/${fundsToAdd}`;
+                            const uri_which = `${process.env.NEXT_PUBLIC_RUNNER_URL}/payment/${fundsToAdd}?which_software=${provider}`
+                            const uri = (provider)?uri_which:uri_no_which;
+                            const response = fetch(uri,
                             {
                                 //body: JSON.stringify({}),
                                 headers: {
