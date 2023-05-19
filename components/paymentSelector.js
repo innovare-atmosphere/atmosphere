@@ -55,7 +55,8 @@ export default function PaymentSelector({ total, setValid, setPaymentInformation
     }
     //const [isNewCardValid, setNewCardValid] = useState(false);
     const isPaymentOptionValid = {
-      "balance": accountData?(accountData.organizations[0].balance > total):false,
+      "balance": accountData?(accountData.organizations[0].balance >= total):false,
+      //"card_once": true,
       //"new_card": isNewCardValid,
       //"24hours": true,
     };
@@ -79,7 +80,7 @@ export default function PaymentSelector({ total, setValid, setPaymentInformation
                 }
                 <option value="balance">pay with account balance</option>
                 {
-                // <option value="new_card">pay with a new card</option>
+                 // <option value="card_once">pay with card</option>
                 }
                 {
                     //<option value="24hours">use it for free for 24 hours</option>
@@ -88,9 +89,10 @@ export default function PaymentSelector({ total, setValid, setPaymentInformation
             </div>
             {paymentOption == "balance" && (
             <div className="text-right flex-col">
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-sm text-left">
                     We will charge US${" "}
                     {parseFloat(total).toFixed(2)} from your current balance. 
+                    When adding funds, we will redirect you to our payment gateway, the payment will be added as balance on your account. 
                 </p>
                 {accountData && accountData.organizations.map(({ id, balance, name, subdomain }) => {
                     return (
@@ -105,6 +107,13 @@ export default function PaymentSelector({ total, setValid, setPaymentInformation
                 })}
             </div>
             )}
+            {/*paymentOption == "card_once" && (
+              <p className="text-gray-600 text-sm">
+                We will redirect you to our payment gateway for you to pay US${" "}
+                {parseFloat(total).toFixed(2)} It will be charged once. Once the payment is processed, 
+                you'll continue with the installation.
+              </p>
+            )*/}
             {/*paymentOption == "24hours" && (
               <p className="text-gray-600 text-sm">
                 * After 24 hours, the system will automatically delete all created
