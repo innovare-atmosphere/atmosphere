@@ -34,6 +34,7 @@ services:
       MAIL_FROM_NAME: "${mail_from_name}"
       PAGADITO_UID: "${pagadito_uid}"
       PAGADITO_WSK: "${pagadito_wsk}"
+      PAGADITO_URL: "${pagadito_url}"
     image: "innovaresoftware/atmosphere-runner:latest"
     ports:
       - 3001:80
