@@ -23,7 +23,7 @@ services:
       - /tmp:/tmp
       - ./migrations:/code/app/migrations
     environment:
-      FRONTEND_URL: "https://atmosphere.innovare.es"
+      FRONTEND_URL: "http://localhost:3000"
       DB_URL: "postgres://atmosphere:${database_password}@postgres:5432/atmosphere"
       DO_KEY: "${do_key}"
       MAIL_USERNAME: "${mail_username}"
@@ -32,6 +32,8 @@ services:
       MAIL_PORT: "${mail_port}"
       MAIL_SERVER: "${mail_server}"
       MAIL_FROM_NAME: "${mail_from_name}"
+      PAGADITO_UID: "${pagadito_uid}"
+      PAGADITO_WSK: "${pagadito_wsk}"
     image: "innovaresoftware/atmosphere-runner:latest"
     ports:
       - 3001:80
@@ -39,7 +41,7 @@ services:
     depends_on:
       - "backend"
     environment:
-      BACKEND_URL: "https://atmosphere-backend.innovare.es"
+      BACKEND_URL: "http://localhost:3001"
       COMPILE_VERSION: "${VERSION_TAG}"
     image: "innovaresoftware/atmosphere:latest"
     ports:
