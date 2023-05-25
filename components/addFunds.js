@@ -90,8 +90,7 @@ export default function AddFunds({balance, token, organization, provider}) {
         )}
         <p className="mt-5 text-xs">Current balance</p>
         {organization && (<p className="text-xs">{organization}</p>)}
-        {balance && ( <p className="mb-3">US$ {parseFloat(balance).toFixed(2)}</p>)}
-        {!balance && (<p className="mb-3">US$ {parseFloat(0).toFixed(2)}</p>)}
+        <p className="mb-3">US$ {parseFloat(balance?balance:0).toFixed(2)}</p>
         <a className="p-2 mb-5 rounded-full bg-gray-600 flex text-gray-50 text-xs justify-center hover:shadow-lg"
         onClick={() => {
             setPaymentDialog(true);
